@@ -7,7 +7,7 @@ router.post('/add', addProduct);
 router.get('/products', getAllProducts);
 router.route('/products/:id').delete(removeProduct);
 router.get('*', (req, res) => {
-  res.sendFile(join(__dirname, '..', '..', 'client', 'public'));
+  res.sendFile(join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
 module.exports = router;
