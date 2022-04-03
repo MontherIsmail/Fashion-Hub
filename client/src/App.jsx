@@ -6,6 +6,7 @@ import axios from "axios";
 import Login from "./Components/Login";
 import AddProduct from "./Components/AddProduct";
 import "./App.css";
+import ProductPage from "./Components/ProductPage";
 
 class App extends Component {
   state = {
@@ -110,7 +111,7 @@ class App extends Component {
             }
           ></Route>
           <Route path="/cart" element={<h1>cart</h1>}></Route>
-          <Route path="/product/:id" element={<h1>product</h1>}></Route>
+          <Route path="/product/:id" element={<ProductPage />}></Route>
         </Routes>
       </Router>
     );
