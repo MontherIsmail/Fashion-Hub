@@ -39,7 +39,11 @@ class App extends Component {
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
-
+  removeFromCart = (id) => {
+    const products = JSON.parse(localStorage.getItem("cart")) || [];
+    const filteredArray = products.filter((product) => product.id !== id);
+    localStorage.setItem("cart", filteredArray);
+  };
   deleteItem = (id) => {
     axios
       .delete(`/api/v1/products/${id}`)
