@@ -13,7 +13,7 @@ app.set('port', PORT || 3001);
 morgan('dev');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(join(__dirname, '..', 'client', 'public')));
+app.use(express.static(join(__dirname, '..', 'client', 'build')));
 
 app.use('/api/v1', router);
 
