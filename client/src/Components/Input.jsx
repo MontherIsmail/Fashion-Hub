@@ -1,10 +1,21 @@
-import React from 'react'
+import React from "react";
 
 function Input(props) {
-    const { type, id, name } = props;
+  const { type, id, name, value, placeholder, handleChange, label } = props;
   return (
-        <input type={type} id={id} name={name} required/>
-  )
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+        required
+      />
+    </>
+  );
 }
 
 export default Input;

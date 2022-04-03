@@ -13,14 +13,10 @@ export default function AddProduct(props) {
         </div>
         <hr />
         <form className="form" onSubmit={addProduct}>
-          <label htmlFor="Name">Name :</label>
-            <Input type={'text'} id={'Name'} name={'name'} />
-          <label htmlFor="previous">Previous Price :</label>
-          <Input type={'number'} id={'previous'} name={'prev_price'}  />
-          <label htmlFor="New">New Price :</label>
-          <Input type={'number'} id={'new'} name={'new_price'} />
-          <label htmlFor="quantity">Quantity :</label>
-          <Input type={'number'} id={'quantity'} name={'quantity'} />
+            <Input type={'text'} id={'Name'} name={'name'} label={'Name'} />
+          <Input type={'number'} id={'previous'} name={'prev_price'} label={'Previous Price'} />
+          <Input type={'number'} id={'new'} name={'new_price'} label={'New Price'} />
+          <Input type={'number'} id={'quantity'} name={'quantity'} label={'Quantity'} />
           <label htmlFor="Type">Type :</label>
           <select id="type" name={'category'}>
             <option>Men</option>
