@@ -11,10 +11,11 @@ const addProduct = (req, res, next) => {
     category,
     prev_price,
     new_price,
+    quantity,
   } = req.body;
   addProductSchema
     .validateAsync(req.body)
-    .then((data) => addProductDB(name, category, prev_price, new_price))
+    .then(() => addProductDB(name, category, prev_price, new_price, quantity))
     .then((data) => (!data.rowCount
       ? next(customError('no data', 409))
       : res.json({ message: 'product Added' })))
