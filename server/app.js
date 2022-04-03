@@ -12,6 +12,7 @@ const {
 app.set('port', PORT || 3001);
 
 morgan('dev');
+app.use(cors({ Credentials: true }));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
