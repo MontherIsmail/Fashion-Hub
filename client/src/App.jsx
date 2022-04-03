@@ -1,9 +1,10 @@
+import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
-function App() {
-  return <div className='div'>
-    Hello
-  </div>;
+export default class App extends Component {
+  render() {
+    return <div>Apexport default App;
+    p</div>;
+  }
 }
-
-export default App;
