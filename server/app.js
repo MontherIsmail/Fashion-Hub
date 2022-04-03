@@ -1,6 +1,7 @@
 const { join } = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const router = require('./routes/router');
 const { serverError, pageNotFoundError } = require('./errors');
 
@@ -11,6 +12,7 @@ const {
 app.set('port', PORT || 3001);
 
 morgan('dev');
+app.use(cors({ Credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(join(__dirname, '..', 'client', 'build')));
