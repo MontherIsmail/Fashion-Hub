@@ -13,12 +13,11 @@ const addProduct = (req, res, next) => {
     .then((data) => addProductDB(name, category, prev_price, new_price))
     .then((data) => res.json({ message: 'product Added' }))
     .catch((err) => {
-      console.log(err);
-      // if (err.details) {
-      //   next(customError('Something Wrong', 409));
-      // } else {
-      //   next(err);
-      // }
+      if (err.details) {
+        next(customError('Something Wrong', 409));
+      } else {
+        next(err);
+      }
     });
 };
 
