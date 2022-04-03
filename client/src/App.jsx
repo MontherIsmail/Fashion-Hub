@@ -1,14 +1,16 @@
 import { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import AllProducts from "./Components/AllProducts";
 import Nav from "./Components/Nav";
 import axios from "axios";
 import Login from "./Components/Login";
+import AddProduct from "./Components/AddProduct";
+import "./App.css";
 
 class App extends Component {
   state = {
     products: [],
+    popUpDisplay: false,
     loged: false,
   };
   handleChange = ({ target }) => {
@@ -53,6 +55,28 @@ class App extends Component {
       })
       .catch((err) => console.log(err));
   };
+
+  addProduct = (e) => {
+    e.preventDefault();
+    console.log(444, e.target.prev_price.value);
+    const { name, category, prev_price, new_price, quantity } = e.target;
+    axios
+      .post("/api/v1/products", {
+        name: name.value,
+        category: category.value,
+        prev_price: prev_price.value,
+        new_price: new_price.value,
+        quantity: quantity.value,
+      })
+      .then((data) => {
+        this.setState((prevState) => ({ ...prevState.products, data }));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleOpenPopUp = () => this.setState({ popUpDisplay: true });
+  handleClosePopUp = () => this.setState({ popUpDisplay: false });
+
   render() {
     const { products, loged } = this.state;
     return (
@@ -72,6 +96,16 @@ class App extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 loged={loged}
+              />
+            }
+          ></Route>
+          <Route
+            path="/products"
+            element={
+              <AddProduct
+                trigger={this.state.popUpDisplay}
+                handleClosePopUp={this.handleClosePopUp}
+                addProduct={this.addProduct}
               />
             }
           ></Route>

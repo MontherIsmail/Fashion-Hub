@@ -4,3 +4,62 @@
 span {
   margin: 10px;
 }
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup-inner {
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  height: 70%;
+  bottom: 0;
+  max-width: 640px;
+  background-color: var(--background-color);
+  border-radius: 15px;
+}
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  height: 10%;
+}
+.popup-header h3 {
+  color: var(--main-color);
+}
+.popup-header button {
+  height: 20px;
+  width: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: red;
+  color: var(--background-color);
+  cursor: pointer;
+}
+.popup-header button:hover {
+  background-color: var(--background-color);
+  border: 1px solid red;
+  color: red;
+}
+.popup-inner hr {
+  margin-bottom: 30px;
+}
+.popup-inner .form {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.popup-inner .form label {
+  margin: 30px 0 5px 0;
+  font-weight: bold;
+}
