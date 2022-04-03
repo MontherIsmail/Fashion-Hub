@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (err, req, res, next) => {
   const status = err.status || 500;
+  console.log(err);
   switch (status) {
     case 400:
       res.status(status).json({ message: 'Try Again', status });
