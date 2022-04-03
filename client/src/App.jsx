@@ -1,6 +1,8 @@
 import { Component } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import AllProducts from "./Components/AllProducts";
+import Nav from "./Components/Nav";
 
 class App extends Component {
   state = {
@@ -26,9 +28,20 @@ class App extends Component {
   render() {
     const { products } = this.state;
     return (
-      <div className="div">
-        <AllProducts products={products} deleteItem={this.deleteItem} />
-      </div>
+      <Router>
+        <Nav />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AllProducts products={products} deleteItem={this.deleteItem} />
+            }
+          ></Route>
+          <Route path="/login" element={<h1>login</h1>}></Route>
+          <Route path="/cart" element={<h1>cart</h1>}></Route>
+          <Route path="/product/:id" element={<h1>product</h1>}></Route>
+        </Routes>
+      </Router>
     );
   }
 }
