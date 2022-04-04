@@ -5,7 +5,7 @@ class Login extends Component {
   render() {
     const { handleLoginInputChange, handleSubmit, isLogged } = this.props;
     return isLogged ? (
-      <h1>you are loged in</h1>
+      <h1>you are logged in</h1>
     ) : (
       <form onSubmit={handleSubmit}>
         <Input

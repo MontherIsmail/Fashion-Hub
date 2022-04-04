@@ -27,7 +27,7 @@ const addProduct = (req, res, next) => {
     .then((data) => {
       res.json({
         status: 200,
-        editedProduct: data.rows[0],
+        addedProduct: data.rows[0],
         message: 'product Added',
       });
     })
