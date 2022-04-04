@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from './Card';
 
 const AllProducts = ({
   products,
@@ -6,6 +6,9 @@ const AllProducts = ({
   addToCart,
   minPrice,
   maxPrice,
+  handleIsEditable,
+  editable,
+  handleEditItemSubmit,
 }) => {
   return (
     <div>
@@ -23,6 +26,9 @@ const AllProducts = ({
               product={product}
               deleteItem={deleteItem}
               addToCart={addToCart}
+              handleIsEditable={handleIsEditable}
+              editable={editable}
+              handleEditItemSubmit={handleEditItemSubmit}
             />
           ))}
     </div>

@@ -12,16 +12,28 @@ const addProduct = (req, res, next) => {
     prev_price,
     new_price,
     quantity,
+    product_image,
   } = req.body;
   addProductSchema
     .validateAsync(req.body)
-    .then(() => addProductDB(name, category, prev_price, new_price, quantity))
-    .then((data) => (!data.rowCount
-      ? next(customError('no data', 409))
-      : res.json({ message: 'product Added' })))
+    .then(() => addProductDB(
+      name,
+      category,
+      prev_price,
+      new_price,
+      quantity,
+      product_image,
+    ))
+    .then((data) => {
+      res.json({
+        status: 200,
+        editedProduct: data.rows[0],
+        message: 'product Added',
+      });
+    })
     .catch((err) => {
       if (err.details) {
-        next(customError('Something Wrong', 409));
+        next(customError({ message: err.details[0].message, status: 409 }));
       } else {
         next(err);
       }

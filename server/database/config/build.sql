@@ -8,7 +8,8 @@ CREATE TABLE products (
   category VARCHAR(100),
   quantity INT,
   prev_price INT NOT NULL,
-  new_price INT NOT NULL
+  new_price INT NOT NULL,
+  product_image TEXT NOT NULL
 );
 
 COMMIT;
