@@ -22,7 +22,7 @@ class GetOneProduct extends Component {
   render() {
     return (
       <>
-        <h1>{this.state.product.name}</h1>
+        <p>{this.state.product.name}</p>
         <p>{this.state.product.category}</p>
         <p>{this.state.product.quantity}</p>
         <p>{this.state.product.prev_price}</p>

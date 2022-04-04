@@ -12,22 +12,21 @@ class App extends Component {
   state = {
     products: [],
     popUpDisplay: false,
-    loged: false,
+    isLogged: false,
+    name: "",
+    password: "",
   };
-  handleChange = ({ target }) => {
+  handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
     });
-    console.log("target.id", target.id, "target.value", target.value);
   };
   handleSubmit = (e) => {
     const { name, password } = this.state;
     e.preventDefault();
     this.setState({
-      loged: true,
+      isLogged: true,
     });
-    console.log(e.target);
-    console.log(this.state);
     const info = { name: name, password: password };
     const user = JSON.parse(localStorage.getItem("info")) || [];
     user.push(info);
@@ -35,8 +34,7 @@ class App extends Component {
   };
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem("info")) || [];
-    this.setState({ loged: user.length ? true : false });
-    console.log(user);
+    this.setState({ isLogged: user.length ? true : false });
     axios
       .get("/api/v1/products")
       .then((res) => this.setState({ products: res.data }))
@@ -79,7 +77,7 @@ class App extends Component {
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
   render() {
-    const { products, loged } = this.state;
+    const { products, isLogged } = this.state;
     return (
       <Router>
         <Nav />
@@ -94,9 +92,9 @@ class App extends Component {
             path="/login"
             element={
               <Login
-                handleChange={this.handleChange}
+                handleLoginInputChange={this.handleLoginInputChange}
                 handleSubmit={this.handleSubmit}
-                loged={loged}
+                isLogged={isLogged}
               />
             }
           ></Route>

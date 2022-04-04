@@ -1,31 +1,34 @@
-const Login = ({ handleChange, handleSubmit, loged }) => {
-  return loged ? (
-    <h1>you are loged in</h1>
-  ) : (
-    <form onSubmit={handleSubmit}>
-      <label>
-        name
-        <input
+import { Component } from "react";
+import Input from "./Input";
+
+class Login extends Component {
+  render() {
+    const { handleLoginInputChange, handleSubmit, isLogged } = this.props;
+    return isLogged ? (
+      <h1>you are loged in</h1>
+    ) : (
+      <form onSubmit={handleSubmit}>
+        <Input
+          id="name"
           type="text"
           placeholder="Enter your name ..."
-          id="name"
-          onChange={handleChange}
+          label="name"
+          handleChange={handleLoginInputChange}
         />
-      </label>
-      <br />
-      <label>
-        password
-        <input
+        <br />
+
+        <Input
+          id="password"
           type="password"
           placeholder="your password ..."
-          id="password"
-          onChange={handleChange}
+          label="password"
+          handleChange={handleLoginInputChange}
         />
-      </label>
-      <br />
-      <button>Login</button>
-    </form>
-  );
-};
+        <br />
+        <button>Login</button>
+      </form>
+    );
+  }
+}
 
 export default Login;
