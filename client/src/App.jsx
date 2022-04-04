@@ -8,6 +8,7 @@ import AddProduct from "./Components/AddProduct";
 import "./App.css";
 import ProductPage from "./Components/ProductPage";
 import Cart from "./Components/Cart";
+import FilterPrice from "./Components/FilterPrice";
 
 class App extends Component {
   state = {
@@ -17,7 +18,14 @@ class App extends Component {
     name: "",
     password: "",
     cart: [],
+    maxPrice: 30,
+    minPrice: 0,
   };
+  Range = (e) => {
+    const { name } = e.target;
+    this.setState({ [name]: e.target.value });
+  };
+
   handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
@@ -94,7 +102,7 @@ class App extends Component {
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
   render() {
-    const { products, isLogged } = this.state;
+    const { products, isLogged, minPrice, maxPrice } = this.state;
     return (
       <Router>
         <Nav />
@@ -102,11 +110,20 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <AllProducts
-                products={products}
-                deleteItem={this.deleteItem}
-                addToCart={this.addToCart}
-              />
+              <>
+                <FilterPrice
+                  Range={this.Range}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                />
+                <AllProducts
+                  products={products}
+                  deleteItem={this.deleteItem}
+                  addToCart={this.addToCart}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                />
+              </>
             }
           ></Route>
           <Route
