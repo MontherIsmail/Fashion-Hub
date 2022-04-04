@@ -9,7 +9,7 @@ import "./App.css";
 import ProductPage from "./Components/ProductPage";
 import Cart from "./Components/Cart";
 import FilterPrice from "./Components/FilterPrice";
-
+import "./Components/Product.css";
 class App extends Component {
   state = {
     products: [],
@@ -131,57 +131,67 @@ class App extends Component {
     const { products, isLogged, editable, cart, minPrice, maxPrice } =
       this.state;
     return (
-      <Router>
-        <Nav />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="container">
-                <aside>
-                  <FilterPrice
-                    Range={this.Range}
-                    minPrice={minPrice}
-                    maxPrice={maxPrice}
-                  />
-                </aside>
-                <AllProducts
-                  products={products}
-                  deleteItem={this.deleteItem}
-                  addToCart={this.addToCart}
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                  handleIsEditable={this.handleIsEditable}
-                  handleEditItemSubmit={this.handleEditItemSubmit}
-                  editable={editable}
+      <>
+        <Router>
+          <Nav />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <div className="container">
+                    {/* <header>
+                      <img
+                        src="https://media.discordapp.net/attachments/959905320031903864/960532163487469628/banner-products.PNG?width=1025&height=208"
+                        alt="panner"
+                      />
+                    </header> */}
+                    <aside>
+                      <FilterPrice
+                        Range={this.Range}
+                        minPrice={minPrice}
+                        maxPrice={maxPrice}
+                      />
+                    </aside>
+                    <AllProducts
+                      products={products}
+                      deleteItem={this.deleteItem}
+                      addToCart={this.addToCart}
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                      handleIsEditable={this.handleIsEditable}
+                      handleEditItemSubmit={this.handleEditItemSubmit}
+                      editable={editable}
+                    />
+                  </div>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <Login
+                  handleLoginInputChange={this.handleLoginInputChange}
+                  handleSubmit={this.handleSubmit}
+                  isLogged={isLogged}
                 />
-              </div>
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <Login
-                handleLoginInputChange={this.handleLoginInputChange}
-                handleSubmit={this.handleSubmit}
-                isLogged={isLogged}
-              />
-            }
-          ></Route>
-          <Route
-            path="/products"
-            element={
-              <AddProduct
-                trigger={this.state.popUpDisplay}
-                handleClosePopUp={this.handleClosePopUp}
-                addProduct={this.addProduct}
-              />
-            }
-          ></Route>
-          <Route path="/cart" element={<Cart cart={cart} />}></Route>
-          <Route path="/product/:id" element={<ProductPage />}></Route>
-        </Routes>
-      </Router>
+              }
+            ></Route>
+            <Route
+              path="/products"
+              element={
+                <AddProduct
+                  trigger={this.state.popUpDisplay}
+                  handleClosePopUp={this.handleClosePopUp}
+                  addProduct={this.addProduct}
+                />
+              }
+            ></Route>
+            <Route path="/cart" element={<Cart cart={cart} />}></Route>
+            <Route path="/product/:id" element={<ProductPage />}></Route>
+          </Routes>
+        </Router>
+      </>
     );
   }
 }
