@@ -11,7 +11,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
           value={minPrice}
           name="minPrice"
           min="0"
-          max="1000"
+          max="100000"
           id="minPrice"
           handleChange={Range}
         />
@@ -21,7 +21,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
           value={maxPrice}
           name="maxPrice"
           min="0"
-          max="1000"
+          max="100000"
           id="maxPrice"
           handleChange={Range}
         />
