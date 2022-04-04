@@ -1,9 +1,10 @@
-import Input from './Input';
+import Input from "./Input";
+import "./Product.css";
 
 function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
   return (
-    <>
-      <h2>Filters</h2>
+    <div className="price">
+      <h5>Price</h5>
       <form>
         <Input
           label="Min Price"
@@ -15,6 +16,10 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           id="minPrice"
           handleChange={Range}
         />
+        <div class="range-price">
+          <p>0 $</p>
+          <p>10,000 $</p>
+        </div>
         <Input
           label="Max Price"
           type="range"
@@ -25,8 +30,12 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           id="maxPrice"
           handleChange={Range}
         />
+        <div class="range-price">
+          <p>0 $</p>
+          <p>10,000 $</p>
+        </div>
         <label htmlFor="Type">Type :</label>
-        <select id="type" name={'category'} onChange={handleFilterByCategory}>
+        <select id="type" name={"category"} onChange={handleFilterByCategory}>
           <option value="All">All</option>
           <option value="Men">Men</option>
           <option value="Women">Women</option>
@@ -34,7 +43,7 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           <option value="Girls">Girls</option>
         </select>
       </form>
-    </>
+    </div>
   );
 }
 

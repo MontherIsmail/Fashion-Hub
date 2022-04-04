@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from "./Card";
 
 const AllProducts = ({
   products,
@@ -13,31 +13,28 @@ const AllProducts = ({
 }) => {
   console.log(category);
   return (
-    <div>
-      <span>name</span>
-      <span>category</span>
-      <span>quantity</span>
-      <span>prev_price</span>
-      <span>new_price</span>
-      {products.length &&
-        products
-          .filter(
-            (el) =>
-              (category === 'All' || el.category === category) &&
-              el.new_price >= minPrice &&
-              el.new_price <= maxPrice
-          )
-          .map((product) => (
-            <Card
-              key={product.id}
-              product={product}
-              deleteItem={deleteItem}
-              addToCart={addToCart}
-              handleIsEditable={handleIsEditable}
-              editable={editable}
-              handleEditItemSubmit={handleEditItemSubmit}
-            />
-          ))}
+    <div className="products">
+      <div className="cards">
+        {products.length &&
+          products
+            .filter(
+              (el) =>
+                (category === "All" || el.category === category) &&
+                el.new_price >= minPrice &&
+                el.new_price <= maxPrice
+            )
+            .map((product) => (
+              <Card
+                key={product.id}
+                product={product}
+                deleteItem={deleteItem}
+                addToCart={addToCart}
+                handleIsEditable={handleIsEditable}
+                editable={editable}
+                handleEditItemSubmit={handleEditItemSubmit}
+              />
+            ))}
+      </div>
     </div>
   );
 };
