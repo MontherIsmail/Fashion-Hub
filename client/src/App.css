@@ -97,3 +97,15 @@ nav hr {
 .links ul li:hover{
     border-bottom: 1px solid var(--main-color);
 }
+
+
+
+
+footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  height: 200px;
+  background-color: var(--footer-color);
+}
