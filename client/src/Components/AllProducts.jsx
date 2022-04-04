@@ -1,6 +1,12 @@
 import Card from "./Card";
 
-const AllProducts = ({ products, deleteItem, addToCart }) => {
+const AllProducts = ({
+  products,
+  deleteItem,
+  addToCart,
+  minPrice,
+  maxPrice,
+}) => {
   return (
     <div>
       <span>name</span>
@@ -8,9 +14,17 @@ const AllProducts = ({ products, deleteItem, addToCart }) => {
       <span>quantity</span>
       <span>prev_price</span>
       <span>new_price</span>
-      {products.map((product) => (
-        <Card key={product.id} product={product} deleteItem={deleteItem} addToCart={addToCart} />
-      ))}
+      {products.length &&
+        products
+          .filter((el) => el.new_price >= minPrice && el.new_price <= maxPrice)
+          .map((product) => (
+            <Card
+              key={product.id}
+              product={product}
+              deleteItem={deleteItem}
+              addToCart={addToCart}
+            />
+          ))}
     </div>
   );
 };

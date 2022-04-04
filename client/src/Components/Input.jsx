@@ -1,7 +1,8 @@
 import React from "react";
 
 function Input(props) {
-  const { type, id, name, value, placeholder, handleChange, label } = props;
+  const { type, id, name, value, placeholder, handleChange, label, max, min } =
+    props;
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -12,6 +13,8 @@ function Input(props) {
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
+        max={max}
+        min={min}
         required
       />
     </>
