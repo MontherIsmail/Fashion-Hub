@@ -36,12 +36,12 @@ export default function AddProduct(props) {
             name={'product_image'}
             label={'Product Image'}
           />
-          <label  htmlFor="Type">Type :</label>
+          <label htmlFor="type">Type :</label>
           <select id="type" name={'category'}>
-            <option>Men</option>
-            <option>Women</option>
-            <option>Boys</option>
-            <option>Girls</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Boys">Boys</option>
+            <option value="Girls">Girls</option>
           </select>
           <button>Add</button>
         </form>

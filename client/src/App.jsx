@@ -8,8 +8,9 @@ import AddProduct from "./Components/AddProduct";
 import "./App.css";
 import ProductPage from "./Components/ProductPage";
 import Cart from "./Components/Cart";
-import FilterPrice from "./Components/FilterPrice";
+import Filter from "./Components/Filter";
 import "./Components/Product.css";
+
 class App extends Component {
   state = {
     products: [],
@@ -18,15 +19,20 @@ class App extends Component {
     name: "",
     password: "",
     cart: [],
-    maxPrice: 1000,
+    maxPrice: 900000,
     minPrice: 0,
+    category: "All",
     editable: [false, 0],
   };
   Range = (e) => {
     const { name } = e.target;
     this.setState({ [name]: e.target.value });
   };
-
+  handleFilterByCategory = ({ target: { value } }) => {
+    this.setState({
+      category: value,
+    });
+  };
   handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
@@ -113,6 +119,13 @@ class App extends Component {
         quantity: quantity.value,
         product_image: product_image.value,
       })
+      .then((data) => {
+        this.setState((prevState) => {
+          return {
+            products: [...prevState.products, data.data.addedProduct],
+          };
+        });
+      })
       .catch((err) => console.log(err));
   };
 
@@ -128,15 +141,16 @@ class App extends Component {
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
   render() {
-    const { products, isLogged, editable, cart, minPrice, maxPrice } =
+    const { products, isLogged, editable, cart, minPrice, maxPrice, category } =
       this.state;
     return (
       <>
         <Router>
           <Nav />
           <Routes>
+            <Route path="/" element={<h2>Home</h2>}></Route>
             <Route
-              path="/"
+              path="/market"
               element={
                 <>
                   <div className="container">
@@ -147,7 +161,8 @@ class App extends Component {
                       />
                     </header> */}
                     <aside>
-                      <FilterPrice
+                      <Filter
+                        handleFilterByCategory={this.handleFilterByCategory}
                         Range={this.Range}
                         minPrice={minPrice}
                         maxPrice={maxPrice}
@@ -162,6 +177,7 @@ class App extends Component {
                       handleIsEditable={this.handleIsEditable}
                       handleEditItemSubmit={this.handleEditItemSubmit}
                       editable={editable}
+                      category={category}
                     />
                   </div>
                 </>

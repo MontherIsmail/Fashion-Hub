@@ -9,14 +9,19 @@ const AllProducts = ({
   handleIsEditable,
   editable,
   handleEditItemSubmit,
+  category,
 }) => {
+  console.log(category);
   return (
     <div className="products">
       <div className="cards">
         {products.length &&
           products
             .filter(
-              (el) => el.new_price >= minPrice && el.new_price <= maxPrice
+              (el) =>
+                (category === "All" || el.category === category) &&
+                el.new_price >= minPrice &&
+                el.new_price <= maxPrice
             )
             .map((product) => (
               <Card

@@ -1,6 +1,6 @@
 import Input from "./Input";
 
-function FilterPrice({ Range, minPrice, maxPrice }) {
+function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
   return (
     <div className="price">
       <h5>Price</h5>
@@ -33,9 +33,17 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
           <p>0 $</p>
           <p>10,000 $</p>
         </div>
+        <label htmlFor="Type">Type :</label>
+        <select id="type" name={"category"} onChange={handleFilterByCategory}>
+          <option value="All">All</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+          <option value="Boys">Boys</option>
+          <option value="Girls">Girls</option>
+        </select>
       </form>
     </div>
   );
 }
 
-export default FilterPrice;
+export default Filter;
