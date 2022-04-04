@@ -1,4 +1,5 @@
 import Input from "./Input";
+import "./Product.css";
 
 function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
   return (
