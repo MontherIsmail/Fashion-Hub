@@ -2,7 +2,6 @@ import React from 'react';
 
 function Cart() {
   const productsData = JSON.parse(window.localStorage.getItem('cart')) || [];
-  console.log();
   return (
     <div>
       {productsData.map((product, index) => {
