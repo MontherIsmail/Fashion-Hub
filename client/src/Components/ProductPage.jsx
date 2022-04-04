@@ -1,6 +1,6 @@
-import axios from "axios";
-import { Component } from "react";
-import { useParams } from "react-router-dom";
+import axios from 'axios';
+import { Component } from 'react';
+import { useParams } from 'react-router-dom';
 
 function ProductPage() {
   const { id } = useParams();
@@ -13,7 +13,6 @@ class GetOneProduct extends Component {
   };
   componentDidMount() {
     const { id } = this.props;
-    console.log(id);
     axios
       .get(`/api/v1/products/${id}`)
       .then((res) => this.setState({ product: res.data[0] }))
@@ -27,6 +26,7 @@ class GetOneProduct extends Component {
         <p>{this.state.product.quantity}</p>
         <p>{this.state.product.prev_price}</p>
         <p>{this.state.product.new_price}</p>
+        <img src={this.state.product.product_image} alt='Product'></img>
       </>
     );
   }

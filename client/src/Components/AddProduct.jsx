@@ -1,8 +1,8 @@
-import React from "react";
-import Input from "./Input";
+import React from 'react';
+import Input from './Input';
 export default function AddProduct(props) {
   const { closePopUp, addProduct } = props;
-  return  (
+  return (
     <div className="popup">
       <div className="popup-inner">
         <div className="popup-header">
@@ -11,11 +11,32 @@ export default function AddProduct(props) {
         </div>
         <hr />
         <form className="form" onSubmit={addProduct}>
-            <Input type={'text'} id={'Name'} name={'name'} label={'Name'} />
-          <Input type={'number'} id={'previous'} name={'prev_price'} label={'Previous Price'} />
-          <Input type={'number'} id={'new'} name={'new_price'} label={'New Price'} />
-          <Input type={'number'} id={'quantity'} name={'quantity'} label={'Quantity'} />
-          <label htmlFor="Type">Type :</label>
+          <Input type={'text'} id={'Name'} name={'name'} label={'Name'} />
+          <Input
+            type={'number'}
+            id={'previous'}
+            name={'prev_price'}
+            label={'Previous Price'}
+          />
+          <Input
+            type={'number'}
+            id={'new'}
+            name={'new_price'}
+            label={'New Price'}
+          />
+          <Input
+            type={'number'}
+            id={'quantity'}
+            name={'quantity'}
+            label={'Quantity'}
+          />
+          <Input
+            type={'url'}
+            id={'image'}
+            name={'product_image'}
+            label={'Product Image'}
+          />
+          <label  htmlFor="Type">Type :</label>
           <select id="type" name={'category'}>
             <option>Men</option>
             <option>Women</option>
@@ -26,5 +47,5 @@ export default function AddProduct(props) {
         </form>
       </div>
     </div>
-  )
+  );
 }

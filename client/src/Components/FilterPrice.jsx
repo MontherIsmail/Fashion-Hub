@@ -1,4 +1,4 @@
-import Input from "./Input";
+import Input from './Input';
 
 function FilterPrice({ Range, minPrice, maxPrice }) {
   return (
@@ -6,7 +6,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
       <h2>Filters</h2>
       <form>
         <Input
-          label="min price"
+          label="Min Price"
           type="range"
           value={minPrice}
           name="minPrice"
@@ -16,7 +16,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
           handleChange={Range}
         />
         <Input
-          label="min price"
+          label="Max Price"
           type="range"
           value={maxPrice}
           name="maxPrice"
