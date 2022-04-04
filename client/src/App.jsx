@@ -3,22 +3,50 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AllProducts from "./Components/AllProducts";
 import Nav from "./Components/Nav";
 import axios from "axios";
+import Login from "./Components/Login";
 import AddProduct from "./Components/AddProduct";
 import "./App.css";
+import ProductPage from "./Components/ProductPage";
 import Cart from "./Components/Cart";
 
 class App extends Component {
   state = {
     products: [],
     popUpDisplay: false,
+    isLogged: false,
+    name: "",
+    password: "",
     cart: [],
   };
+  handleLoginInputChange = ({ target }) => {
+    this.setState({
+      [target.id]: target.value,
+    });
+  };
+  handleSubmit = (e) => {
+    const { name, password } = this.state;
+    e.preventDefault();
+    this.setState({
+      isLogged: true,
+    });
+    const info = { name: name, password: password };
+    const user = JSON.parse(localStorage.getItem("info")) || [];
+    user.push(info);
+    localStorage.setItem("info", JSON.stringify(user));
+  };
   componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("info")) || [];
+    this.setState({ isLogged: user.length ? true : false });
     axios
       .get("/api/v1/products")
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
+  removeFromCart = (id) => {
+    const products = JSON.parse(localStorage.getItem("cart")) || [];
+    const filteredArray = products.filter((product) => product.id !== id);
+    localStorage.setItem("cart", filteredArray);
+  };
   deleteItem = (id) => {
     axios
       .delete(`/api/v1/products/${id}`)
@@ -50,8 +78,10 @@ class App extends Component {
   addToCart = (id) => {
     const { products, cart } = this.state;
     const addedProduct = products.filter((product) => product.id === id);
-    this.setState(prevState => ({ cart : [...prevState.cart , addedProduct[0]]}))
-    console.log('cart',cart);
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, addedProduct[0]],
+    }));
+    console.log("cart", cart);
     window.localStorage.setItem("cart", JSON.stringify(cart));
   };
 
@@ -64,7 +94,7 @@ class App extends Component {
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
   render() {
-    const { products } = this.state;
+    const { products, isLogged } = this.state;
     return (
       <Router>
         <Nav />
@@ -79,7 +109,16 @@ class App extends Component {
               />
             }
           ></Route>
-          <Route path="/login" element={<button>login</button>}></Route>
+          <Route
+            path="/login"
+            element={
+              <Login
+                handleLoginInputChange={this.handleLoginInputChange}
+                handleSubmit={this.handleSubmit}
+                isLogged={isLogged}
+              />
+            }
+          ></Route>
           <Route
             path="/products"
             element={
@@ -94,7 +133,7 @@ class App extends Component {
             path="/cart"
             element={<Cart dataInCart={this.dataInCart} />}
           ></Route>
-          <Route path="/product/:id" element={<h1>product</h1>}></Route>
+          <Route path="/product/:id" element={<ProductPage />}></Route>
         </Routes>
       </Router>
     );
