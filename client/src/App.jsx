@@ -1,22 +1,22 @@
-import { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AllProducts from './Components/AllProducts';
-import Nav from './Components/Nav';
-import axios from 'axios';
-import Login from './Components/Login';
-import AddProduct from './Components/AddProduct';
-import './App.css';
-import ProductPage from './Components/ProductPage';
-import Cart from './Components/Cart';
-import FilterPrice from './Components/FilterPrice';
+import { Component } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AllProducts from "./Components/AllProducts";
+import Nav from "./Components/Nav";
+import axios from "axios";
+import Login from "./Components/Login";
+import AddProduct from "./Components/AddProduct";
+import "./App.css";
+import ProductPage from "./Components/ProductPage";
+import Cart from "./Components/Cart";
+import FilterPrice from "./Components/FilterPrice";
 
 class App extends Component {
   state = {
     products: [],
     popUpDisplay: false,
     isLogged: false,
-    name: '',
-    password: '',
+    name: "",
+    password: "",
     cart: [],
     maxPrice: 1000,
     minPrice: 0,
@@ -39,23 +39,23 @@ class App extends Component {
       isLogged: true,
     });
     const info = { name: name, password: password };
-    const user = JSON.parse(localStorage.getItem('info')) || [];
+    const user = JSON.parse(localStorage.getItem("info")) || [];
     user.push(info);
-    localStorage.setItem('info', JSON.stringify(user));
+    localStorage.setItem("info", JSON.stringify(user));
   };
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem('info')) || [];
+    const user = JSON.parse(localStorage.getItem("info")) || [];
     this.setState({ isLogged: user.length ? true : false });
     axios
-      .get('/api/v1/products')
+      .get("/api/v1/products")
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
 
   removeFromCart = (id) => {
-    const products = JSON.parse(localStorage.getItem('cart')) || [];
+    const products = JSON.parse(localStorage.getItem("cart")) || [];
     const filteredArray = products.filter((product) => product.id !== id);
-    localStorage.setItem('cart', filteredArray);
+    localStorage.setItem("cart", filteredArray);
   };
   deleteItem = (id) => {
     axios
@@ -105,7 +105,7 @@ class App extends Component {
     const { name, category, prev_price, new_price, quantity, product_image } =
       e.target;
     axios
-      .post('/api/v1/products', {
+      .post("/api/v1/products", {
         name: name.value,
         category: category.value,
         prev_price: prev_price.value,
@@ -119,7 +119,7 @@ class App extends Component {
   addToCart = (id) => {
     const { products, cart } = this.state;
     const addedProduct = products.filter((product) => product.id === id);
-    window.localStorage.setItem('cart', JSON.stringify(cart));
+    window.localStorage.setItem("cart", JSON.stringify(cart));
     this.setState((prevState) => ({
       cart: [...prevState.cart, addedProduct[0]],
     }));
@@ -137,12 +137,14 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <>
-                <FilterPrice
-                  Range={this.Range}
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                />
+              <div className="container">
+                <aside>
+                  <FilterPrice
+                    Range={this.Range}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                  />
+                </aside>
                 <AllProducts
                   products={products}
                   deleteItem={this.deleteItem}
@@ -153,7 +155,7 @@ class App extends Component {
                   handleEditItemSubmit={this.handleEditItemSubmit}
                   editable={editable}
                 />
-              </>
+              </div>
             }
           ></Route>
           <Route
