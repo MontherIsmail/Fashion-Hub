@@ -9,7 +9,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
             type="range"
             value={minPrice}
             min="0"
-            max="30"
+            max="1000"
             name="minPrice"
             onChange={Range}
           />
@@ -21,7 +21,7 @@ function FilterPrice({ Range, minPrice, maxPrice }) {
             value={maxPrice}
             name="maxPrice"
             min="0"
-            max="30"
+            max="1000"
             onChange={Range}
           />
         </label>

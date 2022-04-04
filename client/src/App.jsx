@@ -18,7 +18,7 @@ class App extends Component {
     name: "",
     password: "",
     cart: [],
-    maxPrice: 30,
+    maxPrice: 1000,
     minPrice: 0,
   };
   Range = (e) => {
