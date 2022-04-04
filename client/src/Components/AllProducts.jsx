@@ -1,6 +1,6 @@
 import Card from "./Card";
 
-const AllProducts = ({ products, deleteItem }) => {
+const AllProducts = ({ products, deleteItem, addToCart }) => {
   return (
     <div>
       <span>name</span>
@@ -9,7 +9,7 @@ const AllProducts = ({ products, deleteItem }) => {
       <span>prev_price</span>
       <span>new_price</span>
       {products.map((product) => (
-        <Card key={product.id} product={product} deleteItem={deleteItem} />
+        <Card key={product.id} product={product} deleteItem={deleteItem} addToCart={addToCart} />
       ))}
     </div>
   );

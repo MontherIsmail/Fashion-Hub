@@ -5,11 +5,13 @@ import Nav from "./Components/Nav";
 import axios from "axios";
 import AddProduct from "./Components/AddProduct";
 import "./App.css";
+import Cart from "./Components/Cart";
 
 class App extends Component {
   state = {
     products: [],
     popUpDisplay: false,
+    cart: [],
   };
   componentDidMount() {
     axios
@@ -17,7 +19,6 @@ class App extends Component {
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
-
   deleteItem = (id) => {
     axios
       .delete(`/api/v1/products/${id}`)
@@ -46,6 +47,19 @@ class App extends Component {
       .catch((err) => console.log(err));
   };
 
+  addToCart = (id) => {
+    const { products, cart } = this.state;
+    const addedProduct = products.filter((product) => product.id === id);
+    this.setState(prevState => ({ cart : [...prevState.cart , addedProduct[0]]}))
+    console.log('cart',cart);
+    window.localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
+  dataInCart = () => {
+    const productsData = JSON.parse(window.localStorage.getItem("cart")) || [];
+    return productsData;
+  };
+
   handleOpenPopUp = () => this.setState({ popUpDisplay: true });
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
@@ -58,7 +72,11 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <AllProducts products={products} deleteItem={this.deleteItem} />
+              <AllProducts
+                products={products}
+                deleteItem={this.deleteItem}
+                addToCart={this.addToCart}
+              />
             }
           ></Route>
           <Route path="/login" element={<button>login</button>}></Route>
@@ -72,7 +90,10 @@ class App extends Component {
               />
             }
           ></Route>
-          <Route path="/cart" element={<h1>cart</h1>}></Route>
+          <Route
+            path="/cart"
+            element={<Cart dataInCart={this.dataInCart} />}
+          ></Route>
           <Route path="/product/:id" element={<h1>product</h1>}></Route>
         </Routes>
       </Router>

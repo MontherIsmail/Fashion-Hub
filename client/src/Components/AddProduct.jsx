@@ -2,8 +2,6 @@ import React from "react";
 import Input from "./Input";
 export default function AddProduct(props) {
   const { closePopUp, addProduct } = props;
-  console.log(5555555, props);
-  console.log(props.trigger);
   return  (
     <div className="popup">
       <div className="popup-inner">
