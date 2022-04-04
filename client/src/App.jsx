@@ -11,6 +11,7 @@ import Cart from "./Components/Cart";
 import Filter from "./Components/Filter";
 import Footer from "./Components/Footer";
 import "./Components/Product.css";
+import Home from "./Components/Home";
 
 class App extends Component {
   state = {
@@ -149,7 +150,22 @@ class App extends Component {
         <Router>
           <Nav />
           <Routes>
-            <Route path="/" element={<h2>Home</h2>}></Route>
+            <Route
+              path="/"
+              element={
+                <Home
+                  products={products}
+                  deleteItem={this.deleteItem}
+                  addToCart={this.addToCart}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  handleIsEditable={this.handleIsEditable}
+                  handleEditItemSubmit={this.handleEditItemSubmit}
+                  editable={editable}
+                  category={category}
+                />
+              }
+            ></Route>
             <Route
               path="/market"
               element={
@@ -191,7 +207,7 @@ class App extends Component {
                   handleLoginInputChange={this.handleLoginInputChange}
                   handleSubmit={this.handleSubmit}
                   isLogged={isLogged}
-                />
+                ></Login>
               }
             ></Route>
             <Route

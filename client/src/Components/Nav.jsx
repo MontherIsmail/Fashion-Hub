@@ -4,23 +4,23 @@ function Nav() {
   return (
     <>
       <nav>
-        <div class="nav-header">
+        <div className="nav-header">
           <h1>FH</h1>
-          <div class="search">
+          <div className="search">
             <input type="search" placeholder="Search" />
-            <button class="search-btn">Search</button>
-            <div class="login">
+            <button className="search-btn">Search</button>
+            <div className="login">
               <Link to="/login">
-                <button class="login-btn">Login</button>
+                <button className="login-btn">Login</button>
               </Link>
               <Link to="/cart">
-                <button class="login-btn">Cart</button>
+                <button className="login-btn">Cart</button>
               </Link>
             </div>
           </div>
         </div>
         <hr />
-        <div class="links">
+        <div className="links">
           <ul>
             <Link to="/"><li className="first-ul">Home</li></Link>
             <Link to="/market">
