@@ -9,6 +9,7 @@ import './App.css';
 import ProductPage from './Components/ProductPage';
 import Cart from './Components/Cart';
 import Filter from './Components/Filter';
+import Footer from './Components/Footer';
 
 class App extends Component {
   state = {
@@ -197,6 +198,7 @@ class App extends Component {
           <Route path="/cart" element={<Cart cart={cart} />}></Route>
           <Route path="/product/:id" element={<ProductPage />}></Route>
         </Routes>
+        <Footer/>
       </Router>
     );
   }
