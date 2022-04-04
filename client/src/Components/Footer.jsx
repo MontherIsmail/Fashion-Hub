@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer>
       <img src={payment} alt="payment" />
-      <div class="logo-copyright">
+      <div className="logo-copyright">
         <img src={footerLogo} alt="footer logo" />
         <p>
           © 2022 Fashion Hub. All rights reserved | Design by Monther Alzamli.
