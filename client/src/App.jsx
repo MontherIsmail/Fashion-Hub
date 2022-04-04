@@ -153,13 +153,13 @@ class App extends Component {
               path="/market"
               element={
                 <>
+                  <header>
+                    <img
+                      src="https://media.discordapp.net/attachments/959905320031903864/960532163487469628/banner-products.PNG?width=1025&height=208"
+                      alt="panner"
+                    />
+                  </header>
                   <div className="container">
-                    {/* <header>
-                      <img
-                        src="https://media.discordapp.net/attachments/959905320031903864/960532163487469628/banner-products.PNG?width=1025&height=208"
-                        alt="panner"
-                      />
-                    </header> */}
                     <aside>
                       <Filter
                         handleFilterByCategory={this.handleFilterByCategory}
