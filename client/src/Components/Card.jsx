@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 class Card extends Component {
   render() {
-    const { product, deleteItem } = this.props;
+    const { product, deleteItem, addToCart } = this.props;
     return (
       <div className="some-cards">
         <div className="cards">
@@ -17,6 +17,7 @@ class Card extends Component {
             delete
           </button>
           <button>edit</button>
+          <button onClick={() => addToCart(product.id)}>Add To Cart</button>
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ import Login from "./Components/Login";
 import AddProduct from "./Components/AddProduct";
 import "./App.css";
 import ProductPage from "./Components/ProductPage";
+import Cart from "./Components/Cart";
 
 class App extends Component {
   state = {
@@ -15,6 +16,7 @@ class App extends Component {
     isLogged: false,
     name: "",
     password: "",
+    cart: [],
   };
   handleLoginInputChange = ({ target }) => {
     this.setState({
@@ -73,6 +75,21 @@ class App extends Component {
       .catch((err) => console.log(err));
   };
 
+  addToCart = (id) => {
+    const { products, cart } = this.state;
+    const addedProduct = products.filter((product) => product.id === id);
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, addedProduct[0]],
+    }));
+    console.log("cart", cart);
+    window.localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
+  dataInCart = () => {
+    const productsData = JSON.parse(window.localStorage.getItem("cart")) || [];
+    return productsData;
+  };
+
   handleOpenPopUp = () => this.setState({ popUpDisplay: true });
   handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
@@ -85,7 +102,11 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <AllProducts products={products} deleteItem={this.deleteItem} />
+              <AllProducts
+                products={products}
+                deleteItem={this.deleteItem}
+                addToCart={this.addToCart}
+              />
             }
           ></Route>
           <Route
@@ -108,7 +129,10 @@ class App extends Component {
               />
             }
           ></Route>
-          <Route path="/cart" element={<h1>cart</h1>}></Route>
+          <Route
+            path="/cart"
+            element={<Cart dataInCart={this.dataInCart} />}
+          ></Route>
           <Route path="/product/:id" element={<ProductPage />}></Route>
         </Routes>
       </Router>
