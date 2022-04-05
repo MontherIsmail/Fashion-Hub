@@ -12,13 +12,13 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           value={minPrice}
           name="minPrice"
           min="0"
-          max="100000"
+          max="1000"
           id="minPrice"
           handleChange={Range}
         />
         <div className="range-price">
-          <p>0 $</p>
-          <p>10,000 $</p>
+          <p>0$</p>
+          <p>1000$</p>
         </div>
         <Input
           label="Max Price"
@@ -26,13 +26,13 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           value={maxPrice}
           name="maxPrice"
           min="0"
-          max="100000"
+          max="1000"
           id="maxPrice"
           handleChange={Range}
         />
         <div className="range-price">
-          <p>0 $</p>
-          <p>10,000 $</p>
+          <p>0$</p>
+          <p>1000$</p>
         </div>
         <label htmlFor="Type">Type :</label>
         <select id="type" name={"category"} onChange={handleFilterByCategory}>

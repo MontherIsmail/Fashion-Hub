@@ -13,7 +13,7 @@ function Home({
   editable,
   handleEditItemSubmit,
 }) {
-  const three = [products[0], products[1], products[2]];
+  const four = [products[0], products[1], products[2], products[3]];
 
   return (
     <>
@@ -82,7 +82,7 @@ function Home({
         </div>
         <div className="some-cards">
           <div className="cards">
-            {three.map((product) => {
+            {four.map((product) => {
               return product ? (
                 <Card
                   key={product.id}
