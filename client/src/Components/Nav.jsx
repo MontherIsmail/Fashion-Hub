@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Nav({
+  handleAllProducts,
   cartCounter,
   handleOnSearchInputChange,
   handleFilterByCategory,
@@ -29,8 +30,8 @@ function Nav({
             <Link to="/">
               <li className="first-ul">Home</li>
             </Link>
-            <Link to="/market">
-              <li>Market</li>
+            <Link to="/market" onClick={handleAllProducts}>
+              <li>Shop</li>
             </Link>
             <li id="Men" name={"category"} onClick={handleFilterByCategory}>
               Men
