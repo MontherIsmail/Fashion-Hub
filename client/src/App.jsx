@@ -12,6 +12,7 @@ import Filter from "./Components/Filter";
 import Footer from "./Components/Footer";
 import "./Components/Product.css";
 import Home from "./Components/Home";
+import bannerProducts from "./assets/bannerProducts.png";
 
 class App extends Component {
   state = {
@@ -170,9 +171,9 @@ class App extends Component {
               path="/market"
               element={
                 <>
-                  <header>
+                  <header className="product-header">
                     <img
-                      src="https://media.discordapp.net/attachments/959905320031903864/960532163487469628/banner-products.PNG?width=1025&height=208"
+                      src={bannerProducts}
                       alt="panner"
                     />
                   </header>
