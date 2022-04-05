@@ -243,7 +243,7 @@ class App extends Component {
               path="/cart"
               element={<Cart removeFromCart={this.removeFromCart} />}
             ></Route>
-            <Route path="/product/:id" element={<ProductPage />}></Route>
+            <Route path="/product/:id" element={<ProductPage addToCart={this.addToCart} />}></Route>
           </Routes>
           <Footer />
         </Router>

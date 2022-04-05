@@ -751,3 +751,37 @@ select {
   border-radius: 2px;
   margin-top: 10px;
 }
+.one-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  align-self: center;
+  margin: 50px 0;
+}
+.one-card-img{
+  width: 300px;
+}
+.one-card img{
+  width: 100%;
+  height: 100%;
+}
+.one-card-info{
+  width: 50%;
+}
+.one-card p{
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.one-card p span{
+  color: var(--main-color);
+}
+.one-card p .prev-price{
+  color: red;
+}
+.add-to-cart-one-card{
+  width: 150px;
+  height: 40px;
+  background-color: var(--main-color);
+  color: #fff;
+}
