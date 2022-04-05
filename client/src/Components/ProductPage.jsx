@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { Component } from 'react';
-import { useParams } from 'react-router-dom';
+import axios from "axios";
+import { Component } from "react";
+import { useParams } from "react-router-dom";
 
 function ProductPage() {
   const { id } = useParams();
@@ -21,15 +21,19 @@ class GetOneProduct extends Component {
   render() {
     return (
       <>
-        <p>{this.state.product.name}</p>
-        <p>{this.state.product.category}</p>
-        <p>{this.state.product.quantity}</p>
-        <p>{this.state.product.prev_price}</p>
-        <p>{this.state.product.new_price}</p>
-        <img src={this.state.product.product_image} alt='Product'></img>
+        <div className="one-card">
+          <div className="one-card-img">
+            <img src={this.state.product.product_image} alt="Product"></img>
+          </div>
+          <div className="one-card-info">
+            <p>Name: <span>{this.state.product.name}</span></p>
+            <p>Category: <span>{this.state.product.category}</span></p>
+            <p>Previous Price: <span className="prev-price">{this.state.product.prev_price}</span></p>
+            <p>New Price: <span>{this.state.product.new_price}</span></p>
+          </div>
+        </div>
       </>
     );
   }
 }
-// id, name, category, quantity, prev_price, new_price
 export default ProductPage;
