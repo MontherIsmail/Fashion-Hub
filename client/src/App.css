@@ -97,7 +97,7 @@ nav hr {
 .links ul li:hover{
     border-bottom: 1px solid var(--main-color);
 }
-header{
+.home-header{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -105,7 +105,7 @@ header{
   background-color: var(--header-color);
   padding: 0 120px;
 }
-header .header-info{
+.home-header .header-info{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -113,18 +113,18 @@ header .header-info{
   height: 70%;
   flex-direction: column;
 }
-header .header-info img{
+.home-header .header-info img{
   width: 250px;
 }
-header .header-info p{
+.home-header .header-info p{
   font-size: 40px;
 }
-header .header-info p span{
+.home-header .header-info p span{
   font-size: 80px;
   font-weight: bold;
   color: #ef465d;
 }
-header .header-info button{
+.home-header .header-info button{
   width: 500px;
   background-color: #ffff;
   height: 40px;
@@ -132,7 +132,7 @@ header .header-info button{
   border-radius: 5px;
   cursor: pointer;
 }
-header .header-info button:hover{
+.home-header .header-info button:hover{
   background-color: var(--main-color);
   color: #fff;
 }

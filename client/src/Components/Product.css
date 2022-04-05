@@ -97,7 +97,7 @@ nav hr {
 .links ul li:hover {
   border-bottom: 1px solid var(--main-color);
 }
-header {
+.product-header {
   width: 100%;
 }
 header img {

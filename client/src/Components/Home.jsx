@@ -15,11 +15,9 @@ function Home({
     handleEditItemSubmit,
   }) {
       const three = [products[0], products[1], products[2]];
-      console.log(44, three);
-      three.map(ele => console.log(8888, ele));
   return (
     <>
-      <header>
+      <header className="home-header">
         <div className="header-info">
           <img src={logoBanner} alt="Logo" />
           <div className="discount">

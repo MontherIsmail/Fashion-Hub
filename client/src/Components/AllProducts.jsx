@@ -11,7 +11,6 @@ const AllProducts = ({
   handleEditItemSubmit,
   category,
 }) => {
-  console.log(category);
   return (
     <div className="products">
       <div className="cards">
