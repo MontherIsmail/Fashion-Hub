@@ -41,6 +41,9 @@ class App extends Component {
       category: target.id,
     });
   };
+  handleAllProducts = () => {
+    this.setState({category : "All"});
+  }
   handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
@@ -170,6 +173,7 @@ class App extends Component {
             cartCounter={cart.length}
             handleOnSearchInputChange={this.handleOnSearchInputChange}
             handleFilterByCategory={this.handleFilter}
+            handleAllProducts={this.handleAllProducts}
           />
           <Routes>
             <Route
