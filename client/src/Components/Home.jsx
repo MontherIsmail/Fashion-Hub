@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logoBanner from "../assets/logoBanner.PNG";
-import banner from "../assets/banner.PNG";
-import typesMan from "../assets/typesMan.PNG";
-import Card from "./Card";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logoBanner from '../assets/logoBanner.PNG';
+import banner from '../assets/banner.PNG';
+import typesMan from '../assets/typesMan.PNG';
+import Card from './Card';
 
 function Home({
   products,
@@ -24,7 +24,7 @@ function Home({
             <p>
               Get Up To<span> 40%</span>
             </p>
-            <p>FOR A SPITAL SALES</p>
+            <p>FOR A SPECIAL SALES</p>
           </div>
           <Link to="/market">
             <button>SHOPPING NOW</button>
@@ -82,20 +82,25 @@ function Home({
         </div>
         <div className="some-cards">
           <div className="cards">
-            {products.length &&
-              three.map((product) => (
-                <Card
-                  key={product.id}
-                  product={product}
-                  deleteItem={deleteItem}
-                  addToCart={addToCart}
-                  handleIsEditable={handleIsEditable}
-                  editable={editable}
-                  handleEditItemSubmit={handleEditItemSubmit}
-                />
-              ))}
+            {
+              products.length >= 3 &&
+              three.map((product) => {
+                return (
+                  <Card
+                    key={product.id}
+                    product={product}
+                    deleteItem={deleteItem}
+                    addToCart={addToCart}
+                    handleIsEditable={handleIsEditable}
+                    editable={editable}
+                    handleEditItemSubmit={handleEditItemSubmit}
+                  />
+                );
+              })}
           </div>
-          <button className="view">VIEW MORE</button>
+          <Link to="/market" className="view">
+            VIEW MORE
+          </Link>
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import Input from "./Input";
-import "./Product.css";
+import "../App.css";
 
 function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
   return (
@@ -16,7 +16,7 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           id="minPrice"
           handleChange={Range}
         />
-        <div class="range-price">
+        <div className="range-price">
           <p>0 $</p>
           <p>10,000 $</p>
         </div>
@@ -30,7 +30,7 @@ function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
           id="maxPrice"
           handleChange={Range}
         />
-        <div class="range-price">
+        <div className="range-price">
           <p>0 $</p>
           <p>10,000 $</p>
         </div>

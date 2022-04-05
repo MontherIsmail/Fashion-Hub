@@ -1,18 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Cart() {
+function Cart({removeFromCart}) {
   const productsData = JSON.parse(window.localStorage.getItem('cart')) || [];
   return (
-    <div>
-      {productsData.map((product, index) => {
+    <div className="cart-container">
+      {productsData.map((product, productIndex) => {
         return (
-          <div id={product.id} key={index}>
-            <h2>{product.name}</h2>
-            <h2>{product.category}</h2>
-            <h2>{product.prev_price}</h2>
-            <h2>{product.new_price}</h2>
-            <h2>{product.quantity}</h2>
-            <img src={product.product_image} alt='Product'></img>
+          <div id={product.id} className="product-in-cart" key={productIndex}>
+            <img src={product.product_image} alt="Product"></img>
+            <Link className="cart-product-name" to={`/product/${product.id}`}>
+              {product.name}
+            </Link>
+            <p>
+              Category:
+              <span className="cart-product-category">{product.category}</span>
+            </p>
+            <p>
+              Price:
+              <span className="cart-product-new_price">
+                {product.new_price}
+              </span>
+            </p>
+            <button className='remove-from-cart-button' onClick={(e) => removeFromCart(productIndex)}>Remove</button>
           </div>
         );
       })}

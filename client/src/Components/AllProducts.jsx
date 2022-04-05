@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from './Card';
 
 const AllProducts = ({
   products,
@@ -10,6 +10,7 @@ const AllProducts = ({
   editable,
   handleEditItemSubmit,
   category,
+  search,
 }) => {
   return (
     <div className="products">
@@ -18,7 +19,8 @@ const AllProducts = ({
           products
             .filter(
               (el) =>
-                (category === "All" || el.category === category) &&
+                el.name.toLowerCase().includes(search.toLowerCase()) &&
+                (category === 'All' || el.category === category) &&
                 el.new_price >= minPrice &&
                 el.new_price <= maxPrice
             )
@@ -31,6 +33,7 @@ const AllProducts = ({
                 handleIsEditable={handleIsEditable}
                 editable={editable}
                 handleEditItemSubmit={handleEditItemSubmit}
+                search={search}
               />
             ))}
       </div>

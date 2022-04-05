@@ -1,28 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-function Nav() {
+function Nav({cartCounter, handleOnSearchInputChange}) {
   return (
     <>
       <nav>
         <div className="nav-header">
           <h1>FH</h1>
           <div className="search">
-            <input type="search" placeholder="Search" />
-            <button className="search-btn">Search</button>
-            <div className="login">
-              <Link to="/login">
-                <button className="login-btn">Login</button>
-              </Link>
-              <Link to="/cart">
-                <button className="login-btn">Cart</button>
-              </Link>
-            </div>
+            <input type="search" placeholder="Search" onChange={handleOnSearchInputChange}/>
+            <Link className="login" to="/login">
+              Login
+            </Link>
+            <Link className="cart" to="/cart">
+              Cart {cartCounter}
+            </Link>
           </div>
         </div>
-        <hr />
         <div className="links">
           <ul>
-            <Link to="/"><li className="first-ul">Home</li></Link>
+            <Link to="/">
+              <li className="first-ul">Home</li>
+            </Link>
             <Link to="/market">
               <li>Market</li>
             </Link>
