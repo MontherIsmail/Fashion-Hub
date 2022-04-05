@@ -31,8 +31,15 @@ class App extends Component {
     this.setState({ [name]: e.target.value });
   };
   handleFilterByCategory = ({ target: { value } }) => {
+    console.log(value);
     this.setState({
       category: value,
+    });
+  };
+  handleFilter = ({ target }) => {
+    console.log(target.id);
+    this.setState({
+      category: target.id,
     });
   };
   handleLoginInputChange = ({ target }) => {
@@ -146,7 +153,7 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Nav />
+          <Nav handleFilterByCategory={this.handleFilter} />
           <Routes>
             <Route
               path="/"
@@ -207,11 +214,7 @@ class App extends Component {
             ></Route>
             <Route
               path="/products"
-              element={
-                <AddProduct
-                  addProduct={this.addProduct}
-                />
-              }
+              element={<AddProduct addProduct={this.addProduct} />}
             ></Route>
             <Route path="/cart" element={<Cart cart={cart} />}></Route>
             <Route path="/product/:id" element={<ProductPage />}></Route>
