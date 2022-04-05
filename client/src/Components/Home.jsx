@@ -82,21 +82,21 @@ function Home({
         </div>
         <div className="some-cards">
           <div className="cards">
-            {
-              products.length >= 3 &&
-              three.map((product) => {
-                return (
-                  <Card
-                    key={product.id}
-                    product={product}
-                    deleteItem={deleteItem}
-                    addToCart={addToCart}
-                    handleIsEditable={handleIsEditable}
-                    editable={editable}
-                    handleEditItemSubmit={handleEditItemSubmit}
-                  />
-                );
-              })}
+            {three.map((product) => {
+              return product ? (
+                <Card
+                  key={product.id}
+                  product={product}
+                  deleteItem={deleteItem}
+                  addToCart={addToCart}
+                  handleIsEditable={handleIsEditable}
+                  editable={editable}
+                  handleEditItemSubmit={handleEditItemSubmit}
+                />
+              ) : (
+                <></>
+              );
+            })}
           </div>
           <Link to="/market" className="view">
             VIEW MORE
