@@ -11,6 +11,7 @@ class Card extends Component {
       editable,
       handleEditItemSubmit,
       addToCart,
+      isLogged,
     } = this.props;
     return (
       <div className="card">
@@ -24,18 +25,23 @@ class Card extends Component {
             {product.prev_price} $
           </p>
         </div>
+        {isLogged ? (
+          <>
+            <button className="delete" onClick={() => deleteItem(product.id)}>
+              delete
+            </button>
+            <button
+              className="edit"
+              id={product.id}
+              onClick={(e) => handleIsEditable(e)}
+            >
+              edit
+            </button>
+          </>
+        ) : (
+          <button onClick={(e) => addToCart(product.id)}>Add To Cart</button>
+        )}
 
-        <button className="delete" onClick={() => deleteItem(product.id)}>
-          delete
-        </button>
-        <button
-          className="edit"
-          id={product.id}
-          onClick={(e) => handleIsEditable(e)}
-        >
-          edit
-        </button>
-        <button onClick={(e) => addToCart(product.id)}>Add To Cart</button>
         {editable[0] && editable[1] === product.id ? (
           <EditProductForm
             id={product.id}

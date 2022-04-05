@@ -42,8 +42,8 @@ class App extends Component {
     });
   };
   handleSubmit = (e) => {
-    const { name, password } = this.state;
     e.preventDefault();
+    const { name, password } = this.state;
     this.setState({
       isLogged: true,
     });
@@ -209,6 +209,7 @@ class App extends Component {
                       editable={editable}
                       category={category}
                       search={search}
+                      isLogged={isLogged}
                     />
                   </div>
                 </>
