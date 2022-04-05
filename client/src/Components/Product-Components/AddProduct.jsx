@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input';
+import Input from '../Main-Components/Input';
 export default function AddProduct(props) {
   const { addProduct } = props;
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input';
+import Input from '../Main-Components/Input';
 
 function EditProductForm({ handleEditItemSubmit, id }) {
   return (

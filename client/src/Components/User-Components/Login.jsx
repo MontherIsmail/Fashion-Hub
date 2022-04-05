@@ -1,6 +1,6 @@
 import { Component } from "react";
-import Input from "./Input";
-import "../App.css";
+import Input from "../Main-Components/Input";
+import "../../App.css";
 class Login extends Component {
   render() {
     const { handleLoginInputChange, handleSubmit, isLogged } = this.props;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoBanner from '../assets/logoBanner.PNG';
-import banner from '../assets/banner.PNG';
-import typesMan from '../assets/typesMan.PNG';
-import Card from './Card';
+import Card from '../Product-Components/Card';
+import logoBanner from '../../assets/logoBanner.PNG';
+import banner from '../../assets/banner.PNG';
+import typesMan from '../../assets/typesMan.PNG';
 
 function Home({
   products,

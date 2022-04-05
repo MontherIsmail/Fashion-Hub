@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from '../Product-Components/Card';
 
 const AllProducts = ({
   products,

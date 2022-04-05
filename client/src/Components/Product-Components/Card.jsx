@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import EditProductForm from "./EditProductForm";
-import "../App.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import EditProductForm from '../Product-Components/EditProductForm';
+import '../../App.css';
 class Card extends Component {
   render() {
     const {
