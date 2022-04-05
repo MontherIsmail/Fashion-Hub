@@ -1,31 +1,31 @@
-import { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AllProducts from './Components/AllProducts';
-import Nav from './Components/Nav';
-import axios from 'axios';
-import Login from './Components/Login';
-import AddProduct from './Components/AddProduct';
-import './App.css';
-import ProductPage from './Components/ProductPage';
-import Cart from './Components/Cart';
-import Filter from './Components/Filter';
-import Footer from './Components/Footer';
-import './App.css';
-import Home from './Components/Home';
-import bannerProducts from './assets/bannerProducts.png';
+import { Component } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AllProducts from "./Components/AllProducts";
+import Nav from "./Components/Nav";
+import axios from "axios";
+import Login from "./Components/Login";
+import AddProduct from "./Components/AddProduct";
+import "./App.css";
+import ProductPage from "./Components/ProductPage";
+import Cart from "./Components/Cart";
+import Filter from "./Components/Filter";
+import Footer from "./Components/Footer";
+import "./App.css";
+import Home from "./Components/Home";
+import bannerProducts from "./assets/bannerProducts.png";
 
 class App extends Component {
   state = {
     products: [],
     isLogged: false,
-    name: '',
-    password: '',
-    cart: JSON.parse(window.localStorage.getItem('cart')) || [],
+    name: "",
+    password: "",
+    cart: JSON.parse(window.localStorage.getItem("cart")) || [],
     maxPrice: 900000,
     minPrice: 0,
-    category: 'All',
+    category: "All",
     editable: [false, 0],
-    search: '',
+    search: "",
   };
   Range = (e) => {
     const { name } = e.target;
@@ -34,6 +34,11 @@ class App extends Component {
   handleFilterByCategory = ({ target: { value } }) => {
     this.setState({
       category: value,
+    });
+  };
+  handleFilter = ({ target }) => {
+    this.setState({
+      category: target.id,
     });
   };
   handleLoginInputChange = ({ target }) => {
@@ -48,15 +53,15 @@ class App extends Component {
       isLogged: true,
     });
     const info = { name: name, password: password };
-    const user = JSON.parse(localStorage.getItem('info')) || [];
+    const user = JSON.parse(localStorage.getItem("info")) || [];
     user.push(info);
-    localStorage.setItem('info', JSON.stringify(user));
+    localStorage.setItem("info", JSON.stringify(user));
   };
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem('info')) || [];
+    const user = JSON.parse(localStorage.getItem("info")) || [];
     this.setState({ isLogged: user.length ? true : false });
     axios
-      .get('/api/v1/products')
+      .get("/api/v1/products")
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
@@ -65,7 +70,7 @@ class App extends Component {
     const { name, category, prev_price, new_price, quantity, product_image } =
       e.target;
     axios
-      .post('/api/v1/products', {
+      .post("/api/v1/products", {
         name: name.value,
         category: category.value,
         prev_price: prev_price.value,
@@ -135,14 +140,14 @@ class App extends Component {
     this.setState({
       cart: [...cart, addedProduct[0]],
     });
-    window.localStorage.setItem('cart', JSON.stringify(cart));
+    window.localStorage.setItem("cart", JSON.stringify(cart));
   };
   removeFromCart = (productIndex) => {
-    const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
     const filteredArray = productsInCart.filter(
       (product, index) => index !== productIndex
     );
-    localStorage.setItem('cart', JSON.stringify(filteredArray));
+    localStorage.setItem("cart", JSON.stringify(filteredArray));
     this.setState({
       cart: [...filteredArray],
     });
@@ -164,6 +169,7 @@ class App extends Component {
           <Nav
             cartCounter={cart.length}
             handleOnSearchInputChange={this.handleOnSearchInputChange}
+            handleFilterByCategory={this.handleFilter}
           />
           <Routes>
             <Route

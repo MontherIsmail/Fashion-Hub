@@ -1,13 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-function Nav({cartCounter, handleOnSearchInputChange}) {
+function Nav({
+  cartCounter,
+  handleOnSearchInputChange,
+  handleFilterByCategory,
+}) {
   return (
     <>
       <nav>
         <div className="nav-header">
           <h1>FH</h1>
           <div className="search">
-            <input type="search" placeholder="Search" onChange={handleOnSearchInputChange}/>
+            <input
+              type="search"
+              placeholder="Search"
+              onChange={handleOnSearchInputChange}
+            />
             <Link className="login" to="/login">
               Login
             </Link>
@@ -24,18 +32,18 @@ function Nav({cartCounter, handleOnSearchInputChange}) {
             <Link to="/market">
               <li>Market</li>
             </Link>
-            <Link to="#">
-              <li>Men's Clothing</li>
-            </Link>
-            <Link to="#">
-              <li>Women's Clothing</li>
-            </Link>
-            <Link to="#">
-              <li>Kid's Clothing</li>
-            </Link>
-            <Link to="#">
-              <li>Blogs</li>
-            </Link>
+            <li id="Men" name={"category"} onClick={handleFilterByCategory}>
+              Men
+            </li>
+            <li id="Women" name={"category"} onClick={handleFilterByCategory}>
+              Women
+            </li>
+            <li id="Boys" name={"category"} onClick={handleFilterByCategory}>
+              Boys
+            </li>
+            <li id="Girls" name={"category"} onClick={handleFilterByCategory}>
+              Girls
+            </li>
             <Link to="#">
               <li>Contact</li>
             </Link>

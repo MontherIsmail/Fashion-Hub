@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: 'Urbanist', sans-serif;
+  font-family: "Urbanist", sans-serif;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ nav {
 }
 .nav-header h1 {
   color: var(--main-color);
-  font-family: 'Urbanist', sans-serif;
+  font-family: "Urbanist", sans-serif;
   font-size: 38px;
 }
 .home-header {
@@ -329,7 +329,7 @@ footer {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Urbanist', sans-serif;
+  font-family: "Urbanist", sans-serif;
 }
 :root {
   --main-color: #4a86e1;
@@ -407,6 +407,21 @@ input:focus {
 }
 .links ul li {
   list-style-type: none;
+  height: 30px;
+  cursor: pointer;
+}
+.links ul li:hover {
+  border-bottom: 1px solid var(--main-color);
+}
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74vh;
+  background-color: var(--header-color);
+  padding: 0 120px;
+}
+.home-header .header-info {
   height: 35px;
 }
 .links ul li:hover {
@@ -448,6 +463,32 @@ aside {
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
+}
+.home-header .header-info img {
+  width: 250px;
+}
+.home-header .header-info p {
+  font-size: 40px;
+}
+.home-header .header-info p span {
+  font-size: 80px;
+  font-weight: bold;
+  color: #ef465d;
+}
+.home-header .header-info button {
+  width: 500px;
+  background-color: #ffff;
+  height: 40px;
+  border: 1px solid #e2e3e4;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.home-header .header-info button:hover {
+  background-color: var(--main-color);
+  color: #fff;
+}
+.serveces {
+  height: 250px;
 }
 .price,
 .category h5 {
