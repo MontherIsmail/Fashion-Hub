@@ -1,15 +1,14 @@
 import React from 'react';
 import Input from './Input';
 export default function AddProduct(props) {
-  const { closePopUp, addProduct } = props;
+  const { addProduct } = props;
   return (
-    <div className="popup">
-      <div className="popup-inner">
-        <div className="popup-header">
+    <div className="add-container">
+      <div className="add-inner">
+        <div className="add-header">
           <h3>Add New Product</h3>
-          <button onClick={closePopUp}>X</button>
-        </div>
         <hr />
+        </div>
         <form className="form" onSubmit={addProduct}>
           <Input type={'text'} id={'Name'} name={'name'} label={'Name'} />
           <Input

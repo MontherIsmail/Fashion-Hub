@@ -17,7 +17,6 @@ import bannerProducts from "./assets/bannerProducts.png";
 class App extends Component {
   state = {
     products: [],
-    popUpDisplay: false,
     isLogged: false,
     name: "",
     password: "",
@@ -140,8 +139,6 @@ class App extends Component {
       cart: [...prevState.cart, addedProduct[0]],
     }));
   };
-  handleOpenPopUp = () => this.setState({ popUpDisplay: true });
-  handleClosePopUp = () => this.setState({ popUpDisplay: false });
 
   render() {
     const { products, isLogged, editable, cart, minPrice, maxPrice, category } =
@@ -212,8 +209,6 @@ class App extends Component {
               path="/products"
               element={
                 <AddProduct
-                  trigger={this.state.popUpDisplay}
-                  handleClosePopUp={this.handleClosePopUp}
                   addProduct={this.addProduct}
                 />
               }

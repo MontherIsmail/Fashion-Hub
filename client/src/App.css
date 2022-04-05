@@ -5,6 +5,7 @@
 }
 body {
   font-family: "Urbanist", sans-serif;
+  background-color: #fff;
 }
 :root {
   --main-color: #4a86e1;
@@ -247,4 +248,77 @@ footer{
   padding: 50px;
   height: 200px;
   background-color: var(--footer-color);
+}
+.add-container{
+  width: 100%;
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-inner{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 30px 20px;
+  border-radius: 5px;
+  width: 40%;
+  height: fit-content;
+  background-color: #e4e4e4;
+}
+.add-header{
+  margin-bottom: 30px;
+  width: 100%;
+}
+.add-header hr{
+  width: 100%;
+}
+.add-header h3{
+  color: var(--main-color);
+  margin-bottom: 10px;
+}
+
+.form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 90%;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.form label{
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.form input{
+  width: 80%;
+  height: 30px;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+.form select{
+  width: 400px;
+  border-radius: 10px;
+  height: 30px;
+  padding: 0 10px;
+  margin-bottom: 30px;
+}
+.form button{
+  width: 80%;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--main-color);
+  color: #fff;
+  cursor: pointer;
+}
+.form button:hover{
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #80808080;
 }
