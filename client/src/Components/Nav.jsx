@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom";
 
-function Nav({ handleFilterByCategory }) {
+function Nav({
+  cartCounter,
+  handleOnSearchInputChange,
+  handleFilterByCategory,
+}) {
   return (
     <>
       <nav>
         <div className="nav-header">
           <h1>FH</h1>
           <div className="search">
-            <input type="search" placeholder="Search" />
-            <button className="search-btn">Search</button>
-            <div className="login">
-              <Link to="/login">
-                <button className="login-btn">Login</button>
-              </Link>
-              <Link to="/cart">
-                <button className="login-btn">Cart</button>
-              </Link>
-            </div>
+            <input
+              type="search"
+              placeholder="Search"
+              onChange={handleOnSearchInputChange}
+            />
+            <Link className="login" to="/login">
+              Login
+            </Link>
+            <Link className="cart" to="/cart">
+              Cart {cartCounter}
+            </Link>
           </div>
         </div>
-        <hr />
         <div className="links">
           <ul>
             <Link to="/">

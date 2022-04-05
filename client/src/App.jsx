@@ -10,7 +10,7 @@ import ProductPage from "./Components/ProductPage";
 import Cart from "./Components/Cart";
 import Filter from "./Components/Filter";
 import Footer from "./Components/Footer";
-import "./Components/Product.css";
+import "./App.css";
 import Home from "./Components/Home";
 import bannerProducts from "./assets/bannerProducts.png";
 
@@ -20,24 +20,23 @@ class App extends Component {
     isLogged: false,
     name: "",
     password: "",
-    cart: [],
+    cart: JSON.parse(window.localStorage.getItem("cart")) || [],
     maxPrice: 900000,
     minPrice: 0,
     category: "All",
     editable: [false, 0],
+    search: "",
   };
   Range = (e) => {
     const { name } = e.target;
     this.setState({ [name]: e.target.value });
   };
   handleFilterByCategory = ({ target: { value } }) => {
-    console.log(value);
     this.setState({
       category: value,
     });
   };
   handleFilter = ({ target }) => {
-    console.log(target.id);
     this.setState({
       category: target.id,
     });
@@ -48,8 +47,8 @@ class App extends Component {
     });
   };
   handleSubmit = (e) => {
-    const { name, password } = this.state;
     e.preventDefault();
+    const { name, password } = this.state;
     this.setState({
       isLogged: true,
     });
@@ -66,11 +65,27 @@ class App extends Component {
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
   }
-
-  removeFromCart = (id) => {
-    const products = JSON.parse(localStorage.getItem("cart")) || [];
-    const filteredArray = products.filter((product) => product.id !== id);
-    localStorage.setItem("cart", filteredArray);
+  addProduct = (e) => {
+    e.preventDefault();
+    const { name, category, prev_price, new_price, quantity, product_image } =
+      e.target;
+    axios
+      .post("/api/v1/products", {
+        name: name.value,
+        category: category.value,
+        prev_price: prev_price.value,
+        new_price: new_price.value,
+        quantity: quantity.value,
+        product_image: product_image.value,
+      })
+      .then((data) => {
+        this.setState((prevState) => {
+          return {
+            products: [...prevState.products, data.data.addedProduct],
+          };
+        });
+      })
+      .catch((err) => console.log(err));
   };
   deleteItem = (id) => {
     axios
@@ -114,46 +129,48 @@ class App extends Component {
       })
       .catch((err) => console.log(err));
   };
-
-  addProduct = (e) => {
-    e.preventDefault();
-    const { name, category, prev_price, new_price, quantity, product_image } =
-      e.target;
-    axios
-      .post("/api/v1/products", {
-        name: name.value,
-        category: category.value,
-        prev_price: prev_price.value,
-        new_price: new_price.value,
-        quantity: quantity.value,
-        product_image: product_image.value,
-      })
-      .then((data) => {
-        this.setState((prevState) => {
-          return {
-            products: [...prevState.products, data.data.addedProduct],
-          };
-        });
-      })
-      .catch((err) => console.log(err));
+  handleOnSearchInputChange = ({ target: { value } }) => {
+    this.setState({
+      search: value,
+    });
   };
-
   addToCart = (id) => {
     const { products, cart } = this.state;
     const addedProduct = products.filter((product) => product.id === id);
+    this.setState({
+      cart: [...cart, addedProduct[0]],
+    });
     window.localStorage.setItem("cart", JSON.stringify(cart));
-    this.setState((prevState) => ({
-      cart: [...prevState.cart, addedProduct[0]],
-    }));
   };
-
+  removeFromCart = (productIndex) => {
+    const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const filteredArray = productsInCart.filter(
+      (product, index) => index !== productIndex
+    );
+    localStorage.setItem("cart", JSON.stringify(filteredArray));
+    this.setState({
+      cart: [...filteredArray],
+    });
+  };
   render() {
-    const { products, isLogged, editable, cart, minPrice, maxPrice, category } =
-      this.state;
+    const {
+      products,
+      isLogged,
+      editable,
+      cart,
+      minPrice,
+      maxPrice,
+      category,
+      search,
+    } = this.state;
     return (
       <>
         <Router>
-          <Nav handleFilterByCategory={this.handleFilter} />
+          <Nav
+            cartCounter={cart.length}
+            handleOnSearchInputChange={this.handleOnSearchInputChange}
+            handleFilterByCategory={this.handleFilter}
+          />
           <Routes>
             <Route
               path="/"
@@ -197,6 +214,8 @@ class App extends Component {
                       handleEditItemSubmit={this.handleEditItemSubmit}
                       editable={editable}
                       category={category}
+                      search={search}
+                      isLogged={isLogged}
                     />
                   </div>
                 </>
@@ -216,7 +235,10 @@ class App extends Component {
               path="/products"
               element={<AddProduct addProduct={this.addProduct} />}
             ></Route>
-            <Route path="/cart" element={<Cart cart={cart} />}></Route>
+            <Route
+              path="/cart"
+              element={<Cart removeFromCart={this.removeFromCart} />}
+            ></Route>
             <Route path="/product/:id" element={<ProductPage />}></Route>
           </Routes>
           <Footer />
