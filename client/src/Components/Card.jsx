@@ -18,8 +18,6 @@ class Card extends Component {
         <h5 id={product.name}>
           <Link to={`/product/${product.id}`}>{product.name}</Link>
         </h5>
-        {/* <span id={product.category}>{product.category}</span> */}
-        {/* <span id={product.quantity}>{product.quantity}</span> */}
         <div className="prices">
           <p id={product.new_price}>{product.new_price} $</p>
           <p className="prev-price" id={product.prev_price}>

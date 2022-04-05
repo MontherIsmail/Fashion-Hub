@@ -172,10 +172,7 @@ class App extends Component {
               element={
                 <>
                   <header className="product-header">
-                    <img
-                      src={bannerProducts}
-                      alt="panner"
-                    />
+                    <img src={bannerProducts} alt="panner" />
                   </header>
                   <div className="container">
                     <aside>
