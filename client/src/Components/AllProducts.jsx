@@ -10,6 +10,7 @@ const AllProducts = ({
   editable,
   handleEditItemSubmit,
   category,
+  isLogged,
 }) => {
   return (
     <div className="products">
@@ -31,6 +32,7 @@ const AllProducts = ({
                 handleIsEditable={handleIsEditable}
                 editable={editable}
                 handleEditItemSubmit={handleEditItemSubmit}
+                isLogged={isLogged}
               />
             ))}
       </div>

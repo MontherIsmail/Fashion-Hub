@@ -41,8 +41,8 @@ class App extends Component {
     });
   };
   handleSubmit = (e) => {
-    const { name, password } = this.state;
     e.preventDefault();
+    const { name, password } = this.state;
     this.setState({
       isLogged: true,
     });
@@ -190,6 +190,7 @@ class App extends Component {
                       handleEditItemSubmit={this.handleEditItemSubmit}
                       editable={editable}
                       category={category}
+                      isLogged={isLogged}
                     />
                   </div>
                 </>
@@ -207,11 +208,7 @@ class App extends Component {
             ></Route>
             <Route
               path="/products"
-              element={
-                <AddProduct
-                  addProduct={this.addProduct}
-                />
-              }
+              element={<AddProduct addProduct={this.addProduct} />}
             ></Route>
             <Route path="/cart" element={<Cart cart={cart} />}></Route>
             <Route path="/product/:id" element={<ProductPage />}></Route>
