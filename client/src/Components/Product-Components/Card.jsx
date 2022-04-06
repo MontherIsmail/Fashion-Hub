@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import EditProductForm from '../Product-Components/EditProductForm';
-import '../../App.css';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import EditProductForm from "../Product-Components/EditProductForm";
+import "../../App.css";
+import DeleteDialog from "./DeleteDialog";
 class Card extends Component {
   render() {
     const {
@@ -12,7 +13,9 @@ class Card extends Component {
       handleEditItemSubmit,
       addToCart,
       isLogged,
-      editableProduct
+      editableProduct,
+      toggleShow,
+      show,
     } = this.props;
     return (
       <div className="card">
@@ -28,9 +31,18 @@ class Card extends Component {
         </div>
         {isLogged ? (
           <>
-            <button className="delete" onClick={() => deleteItem(product.id)}>
+            <button
+              id={product.id}
+              className="delete"
+              onClick={() => toggleShow(product.id)}
+            >
               delete
             </button>
+            <DeleteDialog
+              toggleShow={toggleShow}
+              show={show}
+              deleteItem={deleteItem}
+            />
             <button
               className="edit"
               id={product.id}

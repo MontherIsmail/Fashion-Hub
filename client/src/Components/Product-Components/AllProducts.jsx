@@ -1,4 +1,4 @@
-import Card from '../Product-Components/Card';
+import Card from "../Product-Components/Card";
 
 const AllProducts = ({
   products,
@@ -14,6 +14,8 @@ const AllProducts = ({
   isLogged,
   notFoundMessage,
   editableProduct,
+  toggleShow,
+  show,
 }) => {
   return (
     <div className="products">
@@ -21,13 +23,14 @@ const AllProducts = ({
         {!notFoundMessage.status || products.length !== 0 ? (
           products.length &&
           products
-            .filter(
-              (el) =>{
-                return el.name.toLowerCase().includes(search.toLowerCase()) &&
-                (category === 'All' || el.category === category) &&
+            .filter((el) => {
+              return (
+                el.name.toLowerCase().includes(search.toLowerCase()) &&
+                (category === "All" || el.category === category) &&
                 el.new_price >= minPrice &&
-                el.new_price <= maxPrice}
-            )
+                el.new_price <= maxPrice
+              );
+            })
             .map((product) => {
               return (
                 <Card
@@ -41,6 +44,8 @@ const AllProducts = ({
                   search={search}
                   isLogged={isLogged}
                   editableProduct={editableProduct}
+                  toggleShow={toggleShow}
+                  show={show}
                 />
               );
             })
