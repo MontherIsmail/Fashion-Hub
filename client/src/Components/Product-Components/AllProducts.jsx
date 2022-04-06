@@ -6,13 +6,14 @@ const AllProducts = ({
   addToCart,
   minPrice,
   maxPrice,
-  handleIsEditable,
-  editable,
+  handleIsisEditable,
+  isEditable,
   handleEditItemSubmit,
   category,
   search,
   isLogged,
   notFoundMessage,
+  editableProduct,
 }) => {
   return (
     <div className="products">
@@ -21,25 +22,28 @@ const AllProducts = ({
           products.length &&
           products
             .filter(
-              (el) =>
-                el.name.toLowerCase().includes(search.toLowerCase()) &&
+              (el) =>{
+                return el.name.toLowerCase().includes(search.toLowerCase()) &&
                 (category === 'All' || el.category === category) &&
                 el.new_price >= minPrice &&
-                el.new_price <= maxPrice
+                el.new_price <= maxPrice}
             )
-            .map((product) => (
-              <Card
-                key={product.id}
-                product={product}
-                deleteItem={deleteItem}
-                addToCart={addToCart}
-                handleIsEditable={handleIsEditable}
-                editable={editable}
-                handleEditItemSubmit={handleEditItemSubmit}
-                search={search}
-                isLogged={isLogged}
-              />
-            ))
+            .map((product) => {
+              return (
+                <Card
+                  key={product.id}
+                  product={product}
+                  deleteItem={deleteItem}
+                  addToCart={addToCart}
+                  handleIsisEditable={handleIsisEditable}
+                  isEditable={isEditable}
+                  handleEditItemSubmit={handleEditItemSubmit}
+                  search={search}
+                  isLogged={isLogged}
+                  editableProduct={editableProduct}
+                />
+              );
+            })
         ) : (
           <div className="no-data-found-message">{notFoundMessage.message}</div>
         )}

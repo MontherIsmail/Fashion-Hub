@@ -18,17 +18,19 @@ class App extends Component {
   state = {
     products: [],
     isLogged: false,
+    isEditable: [false, 0],
+    editableProduct: [],
     name: '',
     password: '',
     cart: JSON.parse(window.localStorage.getItem('cart')) || [],
-    maxPrice: 900000,
+    maxPrice: 1000,
     minPrice: 0,
     category: 'All',
-    editable: [false, 0],
     search: '',
     notFoundMessage: {},
     validationErrorMessage: {},
     successfullyMessage: {},
+    editedProduct: {},
   };
   Range = (e) => {
     const { name } = e.target;
@@ -50,6 +52,12 @@ class App extends Component {
   handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
+    });
+  };
+  logoutUserHandle = () => {
+    localStorage.removeItem('info');
+    this.setState({
+      isLogged: false,
     });
   };
   handleSubmit = (e) => {
@@ -77,6 +85,7 @@ class App extends Component {
       })
       .catch((err) => console.log(err));
   }
+
   addProduct = (e) => {
     e.preventDefault();
     const { name, category, prev_price, new_price, quantity, product_image } =
@@ -112,11 +121,16 @@ class App extends Component {
       })
       .catch((err) => console.log(err));
   };
-  handleIsEditable = ({ target: { id } }) => {
-    const { editable, products } = this.state;
+  handleIsisEditable = ({ target: { id } }) => {
+    const { isEditable, products } = this.state;
     const editableProduct = products.filter((product) => product.id === +id);
     this.setState({
-      editable: editableProduct[0].id === +id ? [!editable[0], +id] : null,
+      isEditable: !editableProduct[0]
+        ? false
+        : editableProduct[0].id === +id
+        ? [!isEditable[0], +id]
+        : null,
+      editableProduct: editableProduct,
     });
   };
   handleEditItemSubmit = (e, id) => {
@@ -139,7 +153,7 @@ class App extends Component {
           );
           return {
             products: [data.data.editedProduct, ...filteredProducts],
-            editable: false,
+            isEditable: false,
           };
         });
       })
@@ -172,7 +186,7 @@ class App extends Component {
     const {
       products,
       isLogged,
-      editable,
+      isEditable,
       cart,
       minPrice,
       maxPrice,
@@ -181,6 +195,7 @@ class App extends Component {
       validationErrorMessage,
       notFoundMessage,
       successfullyMessage,
+      editableProduct,
     } = this.state;
     return (
       <>
@@ -190,6 +205,8 @@ class App extends Component {
             handleOnSearchInputChange={this.handleOnSearchInputChange}
             handleFilterByCategory={this.handleFilter}
             handleAllProducts={this.handleAllProducts}
+            isLogged={isLogged}
+            logoutUserHandle={this.logoutUserHandle}
           />
           <Routes>
             <Route
@@ -201,9 +218,9 @@ class App extends Component {
                   addToCart={this.addToCart}
                   minPrice={minPrice}
                   maxPrice={maxPrice}
-                  handleIsEditable={this.handleIsEditable}
+                  handleIsisEditable={this.handleIsisEditable}
                   handleEditItemSubmit={this.handleEditItemSubmit}
-                  editable={editable}
+                  isEditable={isEditable}
                   category={category}
                   notFoundMessage={notFoundMessage}
                 />
@@ -231,13 +248,14 @@ class App extends Component {
                       addToCart={this.addToCart}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
-                      handleIsEditable={this.handleIsEditable}
+                      handleIsisEditable={this.handleIsisEditable}
                       handleEditItemSubmit={this.handleEditItemSubmit}
-                      editable={editable}
+                      isEditable={isEditable}
                       category={category}
                       search={search}
                       isLogged={isLogged}
                       notFoundMessage={notFoundMessage}
+                      editableProduct={editableProduct}
                     />
                   </div>
                 </>

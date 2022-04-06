@@ -7,11 +7,12 @@ class Card extends Component {
     const {
       product,
       deleteItem,
-      handleIsEditable,
-      editable,
+      handleIsisEditable,
+      isEditable,
       handleEditItemSubmit,
       addToCart,
       isLogged,
+      editableProduct
     } = this.props;
     return (
       <div className="card">
@@ -33,7 +34,7 @@ class Card extends Component {
             <button
               className="edit"
               id={product.id}
-              onClick={(e) => handleIsEditable(e)}
+              onClick={(e) => handleIsisEditable(e)}
             >
               edit
             </button>
@@ -42,10 +43,12 @@ class Card extends Component {
           <button onClick={(e) => addToCart(product.id)}>Add To Cart</button>
         )}
 
-        {editable[0] && editable[1] === product.id ? (
+        {isEditable[0] && isEditable[1] === product.id ? (
           <EditProductForm
             id={product.id}
             handleEditItemSubmit={handleEditItemSubmit}
+            handleIsisEditable={handleIsisEditable}
+            editableProduct={editableProduct}
           />
         ) : (
           <></>

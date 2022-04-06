@@ -9,8 +9,8 @@ function Home({
   products,
   deleteItem,
   addToCart,
-  handleIsEditable,
-  editable,
+  handleIsisEditable,
+  isEditable,
   handleEditItemSubmit,
   notFoundMessage,
 }) {
@@ -90,8 +90,8 @@ function Home({
                     product={product}
                     deleteItem={deleteItem}
                     addToCart={addToCart}
-                    handleIsEditable={handleIsEditable}
-                    editable={editable}
+                    handleIsisEditable={handleIsisEditable}
+                    isEditable={isEditable}
                     handleEditItemSubmit={handleEditItemSubmit}
                   />
                 ) : (

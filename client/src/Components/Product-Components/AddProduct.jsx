@@ -2,7 +2,6 @@ import React from 'react';
 import Input from '../Main-Components/Input';
 export default function AddProduct(props) {
   const { addProduct, validationErrorMessage, successfullyMessage } = props;
-  console.log(validationErrorMessage);
   return (
     <div className="add-container">
       <div className="add-inner">
