@@ -10,9 +10,9 @@ body {
 }
 #root {
   position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 :root {
@@ -567,7 +567,9 @@ footer {
   padding: 50px;
   height: 200px;
   position: absolute;
+  left: 0;
   bottom: -20%;
+  right: 0;
   width: 100%;
   background-color: var(--footer-color);
 }
