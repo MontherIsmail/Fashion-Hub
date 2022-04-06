@@ -2,12 +2,12 @@
 module.exports = (err, req, res, next) => {
   const status = err.status || 500;
   switch (status) {
-    case 400:
-      res.status(status).json({ message: 'Try Again', status });
-      break;
-    case 409:
-      res.status(status).json({ message: err.message, status });
-      break;
+    // case 400:
+    //   res.status(status).json({ message: 'Try Again', status });
+    //   break;
+    // case 409:
+    //   res.status(status).json({ message: err.message, status });
+    //   break;
     default:
       res.status(status).json({ message: 'Server Error', status });
   }

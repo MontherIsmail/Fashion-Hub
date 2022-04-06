@@ -1,5 +1,5 @@
-import Input from "./Input";
-import "../App.css";
+import Input from "../Main-Components/Input";
+import "../../App.css";
 
 function Filter({ Range, minPrice, maxPrice, handleFilterByCategory }) {
   return (

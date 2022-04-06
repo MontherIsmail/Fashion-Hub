@@ -1,13 +1,13 @@
 import React from 'react';
-import Input from './Input';
+import Input from '../Main-Components/Input';
 export default function AddProduct(props) {
-  const { addProduct } = props;
+  const { addProduct, validationErrorMessage, successfullyMessage } = props;
   return (
     <div className="add-container">
       <div className="add-inner">
         <div className="add-header">
           <h3>Add New Product</h3>
-        <hr />
+          <hr />
         </div>
         <form className="form" onSubmit={addProduct}>
           <Input type={'text'} id={'Name'} name={'name'} label={'Name'} />
@@ -43,6 +43,19 @@ export default function AddProduct(props) {
             <option value="Girls">Girls</option>
           </select>
           <button>Add</button>
+          {validationErrorMessage.message !== "No Products Found" || successfullyMessage ? (
+            <p
+              style={{
+                marginTop: '20px',
+                color: successfullyMessage.status === 200 ? 'green' : 'red',
+              }}
+            >
+              {validationErrorMessage.message}
+              {successfullyMessage.message}
+            </p>
+          ) : (
+            <></>
+          )}
         </form>
       </div>
     </div>

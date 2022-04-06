@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import EditProductForm from "./EditProductForm";
-import "../App.css";
+import EditProductForm from "../Product-Components/EditProductForm";
+import "../../App.css";
+import DeleteDialog from "./DeleteDialog";
 class Card extends Component {
   render() {
     const {
       product,
       deleteItem,
-      handleIsEditable,
-      editable,
+      handleIsisEditable,
+      isEditable,
       handleEditItemSubmit,
       addToCart,
       isLogged,
+      editableProduct,
+      toggleShow,
+      show,
     } = this.props;
     return (
       <div className="card">
@@ -27,13 +31,22 @@ class Card extends Component {
         </div>
         {isLogged ? (
           <>
-            <button className="delete" onClick={() => deleteItem(product.id)}>
+            <button
+              id={product.id}
+              className="delete"
+              onClick={() => toggleShow(product.id)}
+            >
               delete
             </button>
+            <DeleteDialog
+              toggleShow={toggleShow}
+              show={show}
+              deleteItem={deleteItem}
+            />
             <button
               className="edit"
               id={product.id}
-              onClick={(e) => handleIsEditable(e)}
+              onClick={(e) => handleIsisEditable(e)}
             >
               edit
             </button>
@@ -42,10 +55,12 @@ class Card extends Component {
           <button onClick={(e) => addToCart(product.id)}>Add To Cart</button>
         )}
 
-        {editable[0] && editable[1] === product.id ? (
+        {isEditable[0] && isEditable[1] === product.id ? (
           <EditProductForm
             id={product.id}
             handleEditItemSubmit={handleEditItemSubmit}
+            handleIsisEditable={handleIsisEditable}
+            editableProduct={editableProduct}
           />
         ) : (
           <></>

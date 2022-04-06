@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoBanner from '../assets/logoBanner.PNG';
-import banner from '../assets/banner.PNG';
-import typesMan from '../assets/typesMan.PNG';
-import Card from './Card';
+import Card from '../Product-Components/Card';
+import logoBanner from '../../assets/logoBanner.PNG';
+import banner from '../../assets/banner.PNG';
+import typesMan from '../../assets/typesMan.PNG';
 
 function Home({
   products,
   deleteItem,
   addToCart,
-  handleIsEditable,
-  editable,
+  handleIsisEditable,
+  isEditable,
   handleEditItemSubmit,
+  notFoundMessage,
 }) {
   const four = [products[0], products[1], products[2], products[3]];
-
   return (
     <>
       <header className="home-header">
@@ -82,21 +82,27 @@ function Home({
         </div>
         <div className="some-cards">
           <div className="cards">
-            {four.map((product) => {
-              return product ? (
-                <Card
-                  key={product.id}
-                  product={product}
-                  deleteItem={deleteItem}
-                  addToCart={addToCart}
-                  handleIsEditable={handleIsEditable}
-                  editable={editable}
-                  handleEditItemSubmit={handleEditItemSubmit}
-                />
-              ) : (
-                <></>
-              );
-            })}
+            {!notFoundMessage.status || products.length !== 0 ? (
+              four.map((product) => {
+                return product ? (
+                  <Card
+                    key={product.id}
+                    product={product}
+                    deleteItem={deleteItem}
+                    addToCart={addToCart}
+                    handleIsisEditable={handleIsisEditable}
+                    isEditable={isEditable}
+                    handleEditItemSubmit={handleEditItemSubmit}
+                  />
+                ) : (
+                  <></>
+                );
+              })
+            ) : (
+              <div className="no-data-found-message">
+                {notFoundMessage.message}
+              </div>
+            )}
           </div>
           <Link to="/market" className="view">
             VIEW MORE

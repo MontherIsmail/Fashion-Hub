@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Nav({
   handleAllProducts,
   cartCounter,
   handleOnSearchInputChange,
   handleFilterByCategory,
+  isLogged,
+  logoutUserHandle,
 }) {
   return (
     <>
@@ -17,12 +19,26 @@ function Nav({
               placeholder="Search"
               onChange={handleOnSearchInputChange}
             />
-            <Link className="login" to="/login">
-              Login
-            </Link>
-            <Link className="cart" to="/cart">
-              Cart {cartCounter}
-            </Link>
+
+            {isLogged ? (
+              <>
+                <button onClick={logoutUserHandle} className="logout">
+                  Logout
+                </button>
+                <Link className="cart" to="/products">
+                  +
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link className="login" to="/login">
+                  Login
+                </Link>
+                <Link className="cart" to="/cart">
+                  Cart {cartCounter}
+                </Link>
+              </>
+            )}
           </div>
         </div>
         <div className="links">
@@ -33,16 +49,16 @@ function Nav({
             <Link to="/market" onClick={handleAllProducts}>
               <li>Shop</li>
             </Link>
-            <li id="Men" name={"category"} onClick={handleFilterByCategory}>
+            <li id="Men" name={'category'} onClick={handleFilterByCategory}>
               Men
             </li>
-            <li id="Women" name={"category"} onClick={handleFilterByCategory}>
+            <li id="Women" name={'category'} onClick={handleFilterByCategory}>
               Women
             </li>
-            <li id="Boys" name={"category"} onClick={handleFilterByCategory}>
+            <li id="Boys" name={'category'} onClick={handleFilterByCategory}>
               Boys
             </li>
-            <li id="Girls" name={"category"} onClick={handleFilterByCategory}>
+            <li id="Girls" name={'category'} onClick={handleFilterByCategory}>
               Girls
             </li>
             <Link to="#">

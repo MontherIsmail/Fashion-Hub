@@ -1,31 +1,42 @@
 import { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AllProducts from "./Components/AllProducts";
-import Nav from "./Components/Nav";
 import axios from "axios";
-import Login from "./Components/Login";
-import AddProduct from "./Components/AddProduct";
+import Nav from "./Components/Main-Components/Nav";
+import Footer from "./Components/Main-Components/Footer";
+import Home from "./Components/Main-Components/Home";
+import AllProducts from "./Components/Product-Components/AllProducts";
+import AddProduct from "./Components/Product-Components/AddProduct";
+import ProductPage from "./Components/Product-Components/ProductPage";
+import Login from "./Components/User-Components/Login";
 import "./App.css";
-import ProductPage from "./Components/ProductPage";
-import Cart from "./Components/Cart";
-import Filter from "./Components/Filter";
-import Footer from "./Components/Footer";
+import Cart from "./Components/User-Components/Cart";
+import Filter from "./Components/Product-Components/Filter";
 import "./App.css";
-import Home from "./Components/Home";
 import bannerProducts from "./assets/bannerProducts.png";
 
 class App extends Component {
   state = {
     products: [],
     isLogged: false,
+    isEditable: [false, 0],
+    editableProduct: [],
     name: "",
     password: "",
     cart: JSON.parse(window.localStorage.getItem("cart")) || [],
-    maxPrice: 900000,
+    maxPrice: 1000,
     minPrice: 0,
     category: "All",
-    editable: [false, 0],
     search: "",
+    notFoundMessage: {},
+    validationErrorMessage: {},
+    successfullyMessage: {},
+    editedProduct: {},
+    show: false,
+    idToDelete: 0,
+  };
+  toggleShow = (id) => {
+    const { show } = this.state;
+    this.setState({ show: !show, idToDelete: id });
   };
   Range = (e) => {
     const { name } = e.target;
@@ -42,11 +53,17 @@ class App extends Component {
     });
   };
   handleAllProducts = () => {
-    this.setState({category : "All"});
-  }
+    this.setState({ category: "All" });
+  };
   handleLoginInputChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
+    });
+  };
+  logoutUserHandle = () => {
+    localStorage.removeItem("info");
+    this.setState({
+      isLogged: false,
     });
   };
   handleSubmit = (e) => {
@@ -65,9 +82,16 @@ class App extends Component {
     this.setState({ isLogged: user.length ? true : false });
     axios
       .get("/api/v1/products")
-      .then((res) => this.setState({ products: res.data }))
+      .then((res) => {
+        this.setState({
+          products: !res.data[0] ? [] : res.data,
+          notFoundMessage: res.data.status === 203 ? res.data : {},
+          successfullyMessage: res.data.status === 200 ? res.data : {},
+        });
+      })
       .catch((err) => console.log(err));
   }
+
   addProduct = (e) => {
     e.preventDefault();
     const { name, category, prev_price, new_price, quantity, product_image } =
@@ -81,29 +105,39 @@ class App extends Component {
         quantity: quantity.value,
         product_image: product_image.value,
       })
-      .then((data) => {
+      .then((res) => {
         this.setState((prevState) => {
           return {
-            products: [...prevState.products, data.data.addedProduct],
+            products: !res.data.addedProduct
+              ? [...prevState.products]
+              : [...prevState.products, res.data.addedProduct],
+            validationErrorMessage: res.data.status === 400 ? res.data : {},
+            successfullyMessage: res.data.status === 200 ? res.data : {},
           };
         });
       })
       .catch((err) => console.log(err));
   };
-  deleteItem = (id) => {
+  deleteItem = () => {
+    const id = this.state.idToDelete;
     axios
       .delete(`/api/v1/products/${id}`)
       .then(() => {
         let products = this.state.products.filter((item) => item.id !== id);
-        this.setState({ products });
+        this.setState({ products, show: false });
       })
       .catch((err) => console.log(err));
   };
-  handleIsEditable = ({ target: { id } }) => {
-    const { editable, products } = this.state;
+  handleIsisEditable = ({ target: { id } }) => {
+    const { isEditable, products } = this.state;
     const editableProduct = products.filter((product) => product.id === +id);
     this.setState({
-      editable: editableProduct[0].id === +id ? [!editable[0], +id] : null,
+      isEditable: !editableProduct[0]
+        ? false
+        : editableProduct[0].id === +id
+        ? [!isEditable[0], +id]
+        : null,
+      editableProduct: editableProduct,
     });
   };
   handleEditItemSubmit = (e, id) => {
@@ -126,7 +160,7 @@ class App extends Component {
           );
           return {
             products: [data.data.editedProduct, ...filteredProducts],
-            editable: false,
+            isEditable: false,
           };
         });
       })
@@ -145,26 +179,35 @@ class App extends Component {
     });
     window.localStorage.setItem("cart", JSON.stringify(cart));
   };
-  removeFromCart = (productIndex) => {
+  removeFromCart = () => {
+    const productIndex = this.state.idToDelete;
     const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const filteredArray = productsInCart.filter(
-      (product, index) => index !== productIndex
-    );
+    const filteredArray = productsInCart.filter((product, index) => {
+      // eslint-disable-next-line eqeqeq
+      return index != productIndex;
+    });
+
     localStorage.setItem("cart", JSON.stringify(filteredArray));
     this.setState({
       cart: [...filteredArray],
+      show: false,
     });
   };
   render() {
     const {
       products,
       isLogged,
-      editable,
+      isEditable,
       cart,
       minPrice,
       maxPrice,
       category,
       search,
+      validationErrorMessage,
+      notFoundMessage,
+      successfullyMessage,
+      editableProduct,
+      show,
     } = this.state;
     return (
       <>
@@ -174,6 +217,8 @@ class App extends Component {
             handleOnSearchInputChange={this.handleOnSearchInputChange}
             handleFilterByCategory={this.handleFilter}
             handleAllProducts={this.handleAllProducts}
+            isLogged={isLogged}
+            logoutUserHandle={this.logoutUserHandle}
           />
           <Routes>
             <Route
@@ -185,10 +230,11 @@ class App extends Component {
                   addToCart={this.addToCart}
                   minPrice={minPrice}
                   maxPrice={maxPrice}
-                  handleIsEditable={this.handleIsEditable}
+                  handleIsisEditable={this.handleIsisEditable}
                   handleEditItemSubmit={this.handleEditItemSubmit}
-                  editable={editable}
+                  isEditable={isEditable}
                   category={category}
+                  notFoundMessage={notFoundMessage}
                 />
               }
             ></Route>
@@ -214,12 +260,16 @@ class App extends Component {
                       addToCart={this.addToCart}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
-                      handleIsEditable={this.handleIsEditable}
+                      handleIsisEditable={this.handleIsisEditable}
                       handleEditItemSubmit={this.handleEditItemSubmit}
-                      editable={editable}
+                      isEditable={isEditable}
                       category={category}
                       search={search}
                       isLogged={isLogged}
+                      notFoundMessage={notFoundMessage}
+                      editableProduct={editableProduct}
+                      toggleShow={this.toggleShow}
+                      show={show}
                     />
                   </div>
                 </>
@@ -237,13 +287,28 @@ class App extends Component {
             ></Route>
             <Route
               path="/products"
-              element={<AddProduct addProduct={this.addProduct} />}
+              element={
+                <AddProduct
+                  addProduct={this.addProduct}
+                  validationErrorMessage={validationErrorMessage}
+                  successfullyMessage={successfullyMessage}
+                />
+              }
             ></Route>
             <Route
               path="/cart"
-              element={<Cart removeFromCart={this.removeFromCart} />}
+              element={
+                <Cart
+                  removeFromCart={this.removeFromCart}
+                  toggleShow={this.toggleShow}
+                  show={show}
+                />
+              }
             ></Route>
-            <Route path="/product/:id" element={<ProductPage addToCart={this.addToCart} />}></Route>
+            <Route
+              path="/product/:id"
+              element={<ProductPage addToCart={this.addToCart} />}
+            ></Route>
           </Routes>
           <Footer />
         </Router>

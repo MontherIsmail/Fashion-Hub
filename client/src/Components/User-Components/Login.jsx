@@ -1,6 +1,7 @@
-import { Component } from "react";
-import Input from "./Input";
-import "../App.css";
+import { Component } from 'react';
+import Input from '../Main-Components/Input';
+import '../../App.css';
+import { Link } from 'react-router-dom';
 class Login extends Component {
   render() {
     const { handleLoginInputChange, handleSubmit, isLogged } = this.props;
@@ -8,8 +9,8 @@ class Login extends Component {
       <h1>you are logged in</h1>
     ) : (
       <div className="login-form">
-        <form onSubmit={handleSubmit}>
-          <h1>Login Form</h1>
+        <form >
+          <h1>Login</h1>
           <div className="form-group">
             <Input
               className="form-control"
@@ -30,7 +31,12 @@ class Login extends Component {
               handleChange={handleLoginInputChange}
             />
           </div>
-          <button className="btn">Login</button>
+          <div className='login-btn-container'>
+          <Link className="btn" to="/market" onClick={handleSubmit}>
+            Login
+          </Link>
+
+          </div>
         </form>
       </div>
     );
