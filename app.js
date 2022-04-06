@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1', router);
-app.use(express.static(join(__dirname, '..', 'client', 'build')));
+app.use(express.static(join(__dirname, 'client', 'build')));
 router.get('*', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
+  res.sendFile(join(__dirname, 'client', 'build', 'index.html'));
 });
 
 app.use(pageNotFoundError);
