@@ -133,6 +133,14 @@ class App extends Component {
       editableProduct: editableProduct,
     });
   };
+  handleOnEditProductChange = ({ target }) => {
+    console.log(this.state.editableProduct[0]);
+    this.setState({
+      [target.name]: target.value,
+
+    });
+    console.log(target.value);
+  };
   handleEditItemSubmit = (e, id) => {
     const { name, category, prev_price, new_price, quantity, product_image } =
       e.target;
@@ -190,12 +198,17 @@ class App extends Component {
       cart,
       minPrice,
       maxPrice,
-      category,
       search,
       validationErrorMessage,
       notFoundMessage,
       successfullyMessage,
       editableProduct,
+      category,
+      prev_price,
+      new_price,
+      quantity,
+      product_image,
+      name
     } = this.state;
     return (
       <>
@@ -256,6 +269,12 @@ class App extends Component {
                       isLogged={isLogged}
                       notFoundMessage={notFoundMessage}
                       editableProduct={editableProduct}
+                      handleOnEditProductChange={this.handleOnEditProductChange}
+                      name={name}
+                      prev_price={prev_price}
+                      new_price={new_price}
+                      quantity={quantity}
+                      product_image={product_image}
                     />
                   </div>
                 </>

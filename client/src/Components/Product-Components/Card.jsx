@@ -12,7 +12,14 @@ class Card extends Component {
       handleEditItemSubmit,
       addToCart,
       isLogged,
-      editableProduct
+      editableProduct,
+      handleOnEditProductChange,
+      prev_price,
+      new_price,
+      quantity,
+      product_image,
+      name,
+      category
     } = this.props;
     return (
       <div className="card">
@@ -49,6 +56,13 @@ class Card extends Component {
             handleEditItemSubmit={handleEditItemSubmit}
             handleIsisEditable={handleIsisEditable}
             editableProduct={editableProduct}
+            handleOnEditProductChange={handleOnEditProductChange}
+            category={category}
+            name={name}
+            prev_price={prev_price}
+            new_price={new_price}
+            quantity={quantity}
+            product_image={product_image}
           />
         ) : (
           <></>

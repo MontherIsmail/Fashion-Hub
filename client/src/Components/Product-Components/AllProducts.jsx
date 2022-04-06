@@ -9,11 +9,17 @@ const AllProducts = ({
   handleIsisEditable,
   isEditable,
   handleEditItemSubmit,
-  category,
   search,
   isLogged,
   notFoundMessage,
   editableProduct,
+  handleOnEditProductChange,
+  category,
+  prev_price,
+  new_price,
+  quantity,
+  product_image,
+  name,
 }) => {
   return (
     <div className="products">
@@ -21,13 +27,14 @@ const AllProducts = ({
         {!notFoundMessage.status || products.length !== 0 ? (
           products.length &&
           products
-            .filter(
-              (el) =>{
-                return el.name.toLowerCase().includes(search.toLowerCase()) &&
+            .filter((el) => {
+              return (
+                el.name.toLowerCase().includes(search.toLowerCase()) &&
                 (category === 'All' || el.category === category) &&
                 el.new_price >= minPrice &&
-                el.new_price <= maxPrice}
-            )
+                el.new_price <= maxPrice
+              );
+            })
             .map((product) => {
               return (
                 <Card
@@ -41,6 +48,13 @@ const AllProducts = ({
                   search={search}
                   isLogged={isLogged}
                   editableProduct={editableProduct}
+                  handleOnEditProductChange={handleOnEditProductChange}
+                  category={category}
+                  name={name}
+                  prev_price={prev_price}
+                  new_price={new_price}
+                  quantity={quantity}
+                  product_image={product_image}
                 />
               );
             })
