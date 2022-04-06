@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { join } = require('path');
-
+const { pageNotFoundError, serverError } = require('../errors');
 const {
   addProduct,
   getAllProducts,
@@ -10,6 +9,11 @@ const {
 } = require('../controllers');
 
 router.route('/products').get(getAllProducts).post(addProduct);
-router.route('/products/:id').delete(removeProduct).patch(updateProductHandler).get(getOneProduct);
-
+router
+  .route('/products/:id')
+  .delete(removeProduct)
+  .patch(updateProductHandler)
+  .get(getOneProduct);
+router.use(pageNotFoundError);
+router.use(serverError);
 module.exports = router;
