@@ -16,9 +16,11 @@ app.use(cors({ Credentials: true }));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(join(__dirname, '..', 'client', 'build')));
-
 app.use('/api/v1', router);
+app.use(express.static(join(__dirname, '..', 'client', 'build')));
+router.get('*', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
+});
 
 app.use(pageNotFoundError);
 app.use(serverError);
