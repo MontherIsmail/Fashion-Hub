@@ -26,6 +26,9 @@ class App extends Component {
     category: 'All',
     editable: [false, 0],
     search: '',
+    notFoundMessage: {},
+    validationErrorMessage: {},
+    successfullyMessage: {},
   };
   Range = (e) => {
     const { name } = e.target;
@@ -65,7 +68,13 @@ class App extends Component {
     this.setState({ isLogged: user.length ? true : false });
     axios
       .get('/api/v1/products')
-      .then((res) => this.setState({ products: res.data }))
+      .then((res) => {
+        this.setState({
+          products: !res.data[0] ? [] : res.data,
+          notFoundMessage: res.data.status === 203 ? res.data : {},
+          successfullyMessage: res.data.status === 200 ? res.data : {},
+        });
+      })
       .catch((err) => console.log(err));
   }
   addProduct = (e) => {
@@ -81,10 +90,14 @@ class App extends Component {
         quantity: quantity.value,
         product_image: product_image.value,
       })
-      .then((data) => {
+      .then((res) => {
         this.setState((prevState) => {
           return {
-            products: [...prevState.products, data.data.addedProduct],
+            products: !res.data.addedProduct
+              ? [...prevState.products]
+              : [...prevState.products, res.data.addedProduct],
+            validationErrorMessage: res.data.status === 400 ? res.data : {},
+            successfullyMessage: res.data.status === 200 ? res.data : {},
           };
         });
       })
@@ -165,6 +178,9 @@ class App extends Component {
       maxPrice,
       category,
       search,
+      validationErrorMessage,
+      notFoundMessage,
+      successfullyMessage,
     } = this.state;
     return (
       <>
@@ -189,6 +205,7 @@ class App extends Component {
                   handleEditItemSubmit={this.handleEditItemSubmit}
                   editable={editable}
                   category={category}
+                  notFoundMessage={notFoundMessage}
                 />
               }
             ></Route>
@@ -220,6 +237,7 @@ class App extends Component {
                       category={category}
                       search={search}
                       isLogged={isLogged}
+                      notFoundMessage={notFoundMessage}
                     />
                   </div>
                 </>
@@ -237,7 +255,13 @@ class App extends Component {
             ></Route>
             <Route
               path="/products"
-              element={<AddProduct addProduct={this.addProduct} />}
+              element={
+                <AddProduct
+                  addProduct={this.addProduct}
+                  validationErrorMessage={validationErrorMessage}
+                  successfullyMessage={successfullyMessage}
+                />
+              }
             ></Route>
             <Route
               path="/cart"

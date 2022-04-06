@@ -33,7 +33,7 @@ const addProduct = (req, res, next) => {
     })
     .catch((err) => {
       if (err.details) {
-        next(customError({ message: err.details[0].message, status: 409 }));
+        res.json({ message: err.details[0].message, status: 400 });
       } else {
         next(err);
       }

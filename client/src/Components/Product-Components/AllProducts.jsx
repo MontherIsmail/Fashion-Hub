@@ -12,11 +12,13 @@ const AllProducts = ({
   category,
   search,
   isLogged,
+  notFoundMessage,
 }) => {
   return (
     <div className="products">
       <div className="cards">
-        {products.length &&
+        {!notFoundMessage.status || products.length !== 0 ? (
+          products.length &&
           products
             .filter(
               (el) =>
@@ -37,7 +39,10 @@ const AllProducts = ({
                 search={search}
                 isLogged={isLogged}
               />
-            ))}
+            ))
+        ) : (
+          <div className="no-data-found-message">{notFoundMessage.message}</div>
+        )}
       </div>
     </div>
   );

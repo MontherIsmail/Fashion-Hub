@@ -12,9 +12,9 @@ function Home({
   handleIsEditable,
   editable,
   handleEditItemSubmit,
+  notFoundMessage,
 }) {
   const four = [products[0], products[1], products[2], products[3]];
-
   return (
     <>
       <header className="home-header">
@@ -82,21 +82,27 @@ function Home({
         </div>
         <div className="some-cards">
           <div className="cards">
-            {four.map((product) => {
-              return product ? (
-                <Card
-                  key={product.id}
-                  product={product}
-                  deleteItem={deleteItem}
-                  addToCart={addToCart}
-                  handleIsEditable={handleIsEditable}
-                  editable={editable}
-                  handleEditItemSubmit={handleEditItemSubmit}
-                />
-              ) : (
-                <></>
-              );
-            })}
+            {!notFoundMessage.status || products.length !== 0 ? (
+              four.map((product) => {
+                return product ? (
+                  <Card
+                    key={product.id}
+                    product={product}
+                    deleteItem={deleteItem}
+                    addToCart={addToCart}
+                    handleIsEditable={handleIsEditable}
+                    editable={editable}
+                    handleEditItemSubmit={handleEditItemSubmit}
+                  />
+                ) : (
+                  <></>
+                );
+              })
+            ) : (
+              <div className="no-data-found-message">
+                {notFoundMessage.message}
+              </div>
+            )}
           </div>
           <Link to="/market" className="view">
             VIEW MORE
