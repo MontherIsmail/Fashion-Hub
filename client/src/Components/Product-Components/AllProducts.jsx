@@ -1,4 +1,4 @@
-import Card from '../Product-Components/Card';
+import Card from "../Product-Components/Card";
 
 const AllProducts = ({
   products,
@@ -20,6 +20,8 @@ const AllProducts = ({
   quantity,
   product_image,
   name,
+  toggleShow,
+  show,
 }) => {
   return (
     <div className="products">
@@ -55,6 +57,8 @@ const AllProducts = ({
                   new_price={new_price}
                   quantity={quantity}
                   product_image={product_image}
+                  toggleShow={toggleShow}
+                  show={show}
                 />
               );
             })

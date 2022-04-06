@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import './App.css';
 import Nav from './Components/Main-Components/Nav';
 import Footer from './Components/Main-Components/Footer';
 import Home from './Components/Main-Components/Home';
@@ -8,10 +9,8 @@ import AllProducts from './Components/Product-Components/AllProducts';
 import AddProduct from './Components/Product-Components/AddProduct';
 import ProductPage from './Components/Product-Components/ProductPage';
 import Login from './Components/User-Components/Login';
-import './App.css';
 import Cart from './Components/User-Components/Cart';
 import Filter from './Components/Product-Components/Filter';
-import './App.css';
 import bannerProducts from './assets/bannerProducts.png';
 import NotFound from './Components/Main-Components/NotFound';
 class App extends Component {
@@ -31,6 +30,12 @@ class App extends Component {
     validationErrorMessage: {},
     successfullyMessage: {},
     editedProduct: {},
+    show: false,
+    idToDelete: 0,
+  };
+  toggleShow = (id) => {
+    const { show } = this.state;
+    this.setState({ show: !show, idToDelete: id });
   };
   Range = (e) => {
     const { name } = e.target;
@@ -112,12 +117,13 @@ class App extends Component {
       })
       .catch((err) => console.log(err));
   };
-  deleteItem = (id) => {
+  deleteItem = () => {
+    const id = this.state.idToDelete;
     axios
       .delete(`/api/v1/products/${id}`)
       .then(() => {
         let products = this.state.products.filter((item) => item.id !== id);
-        this.setState({ products });
+        this.setState({ products, show: false });
       })
       .catch((err) => console.log(err));
   };
@@ -179,14 +185,18 @@ class App extends Component {
     });
     window.localStorage.setItem('cart', JSON.stringify(cart));
   };
-  removeFromCart = (productIndex) => {
+  removeFromCart = () => {
+    const productIndex = this.state.idToDelete;
     const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
-    const filteredArray = productsInCart.filter(
-      (product, index) => index !== productIndex
-    );
+    const filteredArray = productsInCart.filter((product, index) => {
+      // eslint-disable-next-line eqeqeq
+      return index != productIndex;
+    });
+
     localStorage.setItem('cart', JSON.stringify(filteredArray));
     this.setState({
       cart: [...filteredArray],
+      show: false,
     });
   };
   render() {
@@ -208,6 +218,7 @@ class App extends Component {
       quantity,
       product_image,
       name,
+      show,
     } = this.state;
     return (
       <>
@@ -274,6 +285,8 @@ class App extends Component {
                       new_price={new_price}
                       quantity={quantity}
                       product_image={product_image}
+                      toggleShow={this.toggleShow}
+                      show={show}
                     />
                   </div>
                 </>
@@ -301,7 +314,13 @@ class App extends Component {
             ></Route>
             <Route
               path="/cart"
-              element={<Cart removeFromCart={this.removeFromCart} />}
+              element={
+                <Cart
+                  removeFromCart={this.removeFromCart}
+                  toggleShow={this.toggleShow}
+                  show={show}
+                />
+              }
             ></Route>
             <Route
               path="/product/:id"

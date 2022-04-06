@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import DeleteDialog from "../Product-Components/DeleteDialog";
 
-function Cart({removeFromCart}) {
-  const productsData = JSON.parse(window.localStorage.getItem('cart')) || [];
+function Cart({ removeFromCart, toggleShow, show }) {
+  const productsData = JSON.parse(window.localStorage.getItem("cart")) || [];
   return (
     <div className="cart-container">
       {productsData.map((product, productIndex) => {
@@ -22,7 +23,17 @@ function Cart({removeFromCart}) {
                 {product.new_price}
               </span>
             </p>
-            <button className='remove-from-cart-button' onClick={(e) => removeFromCart(productIndex)}>Remove</button>
+            <button
+              className="remove-from-cart-button"
+              onClick={() => toggleShow(productIndex)}
+            >
+              Remove
+            </button>
+            <DeleteDialog
+              toggleShow={toggleShow}
+              show={show}
+              deleteItem={removeFromCart}
+            />
           </div>
         );
       })}
