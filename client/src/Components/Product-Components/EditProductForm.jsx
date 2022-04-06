@@ -41,6 +41,7 @@ class EditProductForm extends Component {
           name={'prev_price'}
           label={'Previous Price'}
           value={prev_price}
+          max="1000"
           handleChange={this.handleChange}
         />
         <Input
@@ -48,6 +49,7 @@ class EditProductForm extends Component {
           id={'new'}
           name={'new_price'}
           label={'New Price'}
+          max="1000"
           value={new_price}
           handleChange={this.handleChange}
         />
@@ -56,6 +58,7 @@ class EditProductForm extends Component {
           id={'quantity'}
           name={'quantity'}
           label={'Quantity'}
+          max="30"
           value={quantity}
           handleChange={this.handleChange}
         />
@@ -72,14 +75,14 @@ class EditProductForm extends Component {
           id="type"
           name={'category'}
           value={category}
-          handleChange={this.handleChange}
+          onChange={this.handleChange}
         >
           <option value="Men">Men</option>
           <option value="Women">Women</option>
           <option value="Boys">Boys</option>
           <option value="Girls">Girls</option>
         </select>
-        <button>Edit </button>
+        <button>Edit</button>
       </form>
     );
   }

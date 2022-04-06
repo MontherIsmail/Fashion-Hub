@@ -13,7 +13,7 @@ import Cart from './Components/User-Components/Cart';
 import Filter from './Components/Product-Components/Filter';
 import './App.css';
 import bannerProducts from './assets/bannerProducts.png';
-
+import NotFound from './Components/Main-Components/NotFound';
 class App extends Component {
   state = {
     products: [],
@@ -137,7 +137,6 @@ class App extends Component {
     console.log(this.state.editableProduct[0]);
     this.setState({
       [target.name]: target.value,
-
     });
     console.log(target.value);
   };
@@ -208,7 +207,7 @@ class App extends Component {
       new_price,
       quantity,
       product_image,
-      name
+      name,
     } = this.state;
     return (
       <>
@@ -308,6 +307,7 @@ class App extends Component {
               path="/product/:id"
               element={<ProductPage addToCart={this.addToCart} />}
             ></Route>
+            <Route path="*" element={<NotFound />}></Route>
           </Routes>
           <Footer />
         </Router>
