@@ -9,11 +9,17 @@ const AllProducts = ({
   handleIsisEditable,
   isEditable,
   handleEditItemSubmit,
-  category,
   search,
   isLogged,
   notFoundMessage,
   editableProduct,
+  handleOnEditProductChange,
+  category,
+  prev_price,
+  new_price,
+  quantity,
+  product_image,
+  name,
   toggleShow,
   show,
 }) => {
@@ -26,7 +32,7 @@ const AllProducts = ({
             .filter((el) => {
               return (
                 el.name.toLowerCase().includes(search.toLowerCase()) &&
-                (category === "All" || el.category === category) &&
+                (category === 'All' || el.category === category) &&
                 el.new_price >= minPrice &&
                 el.new_price <= maxPrice
               );
@@ -44,6 +50,13 @@ const AllProducts = ({
                   search={search}
                   isLogged={isLogged}
                   editableProduct={editableProduct}
+                  handleOnEditProductChange={handleOnEditProductChange}
+                  category={category}
+                  name={name}
+                  prev_price={prev_price}
+                  new_price={new_price}
+                  quantity={quantity}
+                  product_image={product_image}
                   toggleShow={toggleShow}
                   show={show}
                 />

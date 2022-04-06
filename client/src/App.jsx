@@ -1,32 +1,31 @@
-import { Component } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import Nav from "./Components/Main-Components/Nav";
-import Footer from "./Components/Main-Components/Footer";
-import Home from "./Components/Main-Components/Home";
-import AllProducts from "./Components/Product-Components/AllProducts";
-import AddProduct from "./Components/Product-Components/AddProduct";
-import ProductPage from "./Components/Product-Components/ProductPage";
-import Login from "./Components/User-Components/Login";
-import "./App.css";
-import Cart from "./Components/User-Components/Cart";
-import Filter from "./Components/Product-Components/Filter";
-import "./App.css";
-import bannerProducts from "./assets/bannerProducts.png";
-
+import { Component } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import './App.css';
+import Nav from './Components/Main-Components/Nav';
+import Footer from './Components/Main-Components/Footer';
+import Home from './Components/Main-Components/Home';
+import AllProducts from './Components/Product-Components/AllProducts';
+import AddProduct from './Components/Product-Components/AddProduct';
+import ProductPage from './Components/Product-Components/ProductPage';
+import Login from './Components/User-Components/Login';
+import Cart from './Components/User-Components/Cart';
+import Filter from './Components/Product-Components/Filter';
+import bannerProducts from './assets/bannerProducts.png';
+import NotFound from './Components/Main-Components/NotFound';
 class App extends Component {
   state = {
     products: [],
     isLogged: false,
     isEditable: [false, 0],
     editableProduct: [],
-    name: "",
-    password: "",
-    cart: JSON.parse(window.localStorage.getItem("cart")) || [],
+    name: '',
+    password: '',
+    cart: JSON.parse(window.localStorage.getItem('cart')) || [],
     maxPrice: 1000,
     minPrice: 0,
-    category: "All",
-    search: "",
+    category: 'All',
+    search: '',
     notFoundMessage: {},
     validationErrorMessage: {},
     successfullyMessage: {},
@@ -53,7 +52,7 @@ class App extends Component {
     });
   };
   handleAllProducts = () => {
-    this.setState({ category: "All" });
+    this.setState({ category: 'All' });
   };
   handleLoginInputChange = ({ target }) => {
     this.setState({
@@ -61,7 +60,7 @@ class App extends Component {
     });
   };
   logoutUserHandle = () => {
-    localStorage.removeItem("info");
+    localStorage.removeItem('info');
     this.setState({
       isLogged: false,
     });
@@ -73,15 +72,15 @@ class App extends Component {
       isLogged: true,
     });
     const info = { name: name, password: password };
-    const user = JSON.parse(localStorage.getItem("info")) || [];
+    const user = JSON.parse(localStorage.getItem('info')) || [];
     user.push(info);
-    localStorage.setItem("info", JSON.stringify(user));
+    localStorage.setItem('info', JSON.stringify(user));
   };
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem("info")) || [];
+    const user = JSON.parse(localStorage.getItem('info')) || [];
     this.setState({ isLogged: user.length ? true : false });
     axios
-      .get("/api/v1/products")
+      .get('/api/v1/products')
       .then((res) => {
         this.setState({
           products: !res.data[0] ? [] : res.data,
@@ -97,7 +96,7 @@ class App extends Component {
     const { name, category, prev_price, new_price, quantity, product_image } =
       e.target;
     axios
-      .post("/api/v1/products", {
+      .post('/api/v1/products', {
         name: name.value,
         category: category.value,
         prev_price: prev_price.value,
@@ -140,6 +139,13 @@ class App extends Component {
       editableProduct: editableProduct,
     });
   };
+  handleOnEditProductChange = ({ target }) => {
+    console.log(this.state.editableProduct[0]);
+    this.setState({
+      [target.name]: target.value,
+    });
+    console.log(target.value);
+  };
   handleEditItemSubmit = (e, id) => {
     const { name, category, prev_price, new_price, quantity, product_image } =
       e.target;
@@ -177,17 +183,17 @@ class App extends Component {
     this.setState({
       cart: [...cart, addedProduct[0]],
     });
-    window.localStorage.setItem("cart", JSON.stringify(cart));
+    window.localStorage.setItem('cart', JSON.stringify(cart));
   };
   removeFromCart = () => {
     const productIndex = this.state.idToDelete;
-    const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
     const filteredArray = productsInCart.filter((product, index) => {
       // eslint-disable-next-line eqeqeq
       return index != productIndex;
     });
 
-    localStorage.setItem("cart", JSON.stringify(filteredArray));
+    localStorage.setItem('cart', JSON.stringify(filteredArray));
     this.setState({
       cart: [...filteredArray],
       show: false,
@@ -201,12 +207,17 @@ class App extends Component {
       cart,
       minPrice,
       maxPrice,
-      category,
       search,
       validationErrorMessage,
       notFoundMessage,
       successfullyMessage,
       editableProduct,
+      category,
+      prev_price,
+      new_price,
+      quantity,
+      product_image,
+      name,
       show,
     } = this.state;
     return (
@@ -268,6 +279,12 @@ class App extends Component {
                       isLogged={isLogged}
                       notFoundMessage={notFoundMessage}
                       editableProduct={editableProduct}
+                      handleOnEditProductChange={this.handleOnEditProductChange}
+                      name={name}
+                      prev_price={prev_price}
+                      new_price={new_price}
+                      quantity={quantity}
+                      product_image={product_image}
                       toggleShow={this.toggleShow}
                       show={show}
                     />
@@ -309,6 +326,7 @@ class App extends Component {
               path="/product/:id"
               element={<ProductPage addToCart={this.addToCart} />}
             ></Route>
+            <Route path="*" element={<NotFound />}></Route>
           </Routes>
           <Footer />
         </Router>

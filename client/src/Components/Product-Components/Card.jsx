@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import EditProductForm from "../Product-Components/EditProductForm";
-import "../../App.css";
-import DeleteDialog from "./DeleteDialog";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import EditProductForm from '../Product-Components/EditProductForm';
+import '../../App.css';
+import DeleteDialog from './DeleteDialog';
 class Card extends Component {
   render() {
     const {
@@ -14,6 +14,13 @@ class Card extends Component {
       addToCart,
       isLogged,
       editableProduct,
+      handleOnEditProductChange,
+      prev_price,
+      new_price,
+      quantity,
+      product_image,
+      name,
+      category,
       toggleShow,
       show,
     } = this.props;
@@ -61,6 +68,13 @@ class Card extends Component {
             handleEditItemSubmit={handleEditItemSubmit}
             handleIsisEditable={handleIsisEditable}
             editableProduct={editableProduct}
+            handleOnEditProductChange={handleOnEditProductChange}
+            category={category}
+            name={name}
+            prev_price={prev_price}
+            new_price={new_price}
+            quantity={quantity}
+            product_image={product_image}
           />
         ) : (
           <></>

@@ -6,10 +6,13 @@ class Login extends Component {
   render() {
     const { handleLoginInputChange, handleSubmit, isLogged } = this.props;
     return isLogged ? (
-      <h1>you are logged in</h1>
+      <div className="login-message-container">
+        <p className="login-message">you are logged in</p>
+        <Link to="/market">Add Product</Link>
+      </div>
     ) : (
       <div className="login-form">
-        <form >
+        <form onSubmit={handleSubmit}>
           <h1>Login</h1>
           <div className="form-group">
             <Input
@@ -31,11 +34,8 @@ class Login extends Component {
               handleChange={handleLoginInputChange}
             />
           </div>
-          <div className='login-btn-container'>
-          <Link className="btn" to="/market" onClick={handleSubmit}>
-            Login
-          </Link>
-
+          <div className="login-btn-container">
+            <input type="submit" className="btn" value="Login" />
           </div>
         </form>
       </div>
