@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const router = require('./routes/router');
-const { serverError, pageNotFoundError } = require('./errors');
 
 const app = express();
 const {
@@ -21,8 +20,5 @@ app.use(express.static(join(__dirname, 'client', 'build')));
 router.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'client', 'build', 'index.html'));
 });
-
-app.use(pageNotFoundError);
-app.use(serverError);
 
 module.exports = app;
