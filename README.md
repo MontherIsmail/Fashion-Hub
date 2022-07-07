@@ -29,6 +29,9 @@ A simple e-commerce website allow you to buy clothes
 - CSS → to style the application
 - React js
 - node_modules
+- node js
+- express js
+- postgreSQL
 
 
 ## 👉🏻 **User Journey** <span id='Journey'></span>
