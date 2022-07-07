@@ -27,7 +27,6 @@ A simple e-commerce website allow you to buy clothes
 
 - HTML → to build the structure of the pages
 - CSS → to style the application
-- JS|DOM Manipulations → To create interaction between the page and the user
 - React js
 - node_modules
 
