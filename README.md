@@ -17,11 +17,6 @@ A simple e-commerce website allow you to buy clothes
 </p>
 
 
-## 👉🏻 **Links** <span id='links'></span>
-
-- [Demo link](https://fashion-hub-1.herokuapp.com/)
-
-
 ## 👉🏻 **Features** <span id='features'></span>
 
 - Simple UI
